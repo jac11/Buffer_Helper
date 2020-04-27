@@ -79,7 +79,7 @@ class Buffer_Over:
                   self.connect_servser()
                   self.option_return()
              else:
-                  print"[-]\nplease Enter the C or B [-]" 
+                  print"\n[-]please Enter the C or B [-]" 
                   self.option_return()
         except KeyboardInterrupt:
                   self.Banner() 
