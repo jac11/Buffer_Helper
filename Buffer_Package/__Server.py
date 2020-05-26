@@ -294,7 +294,8 @@ class Buffer_Over():
 		        print line,
 		        
                   time.sleep(2)
-		  print O+"\n <<<<>>>>>>"+W+R+"The Final Process of this Exploit Written in the File "+W+Y+"'FTP.Server_Payload.py'"+W+O+"<<<>>>> "+W 
+		  print O+"\n <<<<>>>>>>"+W+R+"The Final Process of this Exploit Written in the File\
+		  "+W+Y+"'FTP.Server_Payload.py'"+W+O+"<<<>>>> "+W 
 		  time.sleep(2)     
                   print   Banner
                   exit() 
