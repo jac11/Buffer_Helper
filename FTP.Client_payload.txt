@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
 
-
-
-
 # this file write by Buffer_Helper
 # this file contain the the last final payload success
 # ever time you run Buffer Helper this file will get overwritten 
