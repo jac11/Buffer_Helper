@@ -207,7 +207,7 @@ class SERVER_BUFFER():
                   copy_format= shutil.copy("./FTP.Client_payload.txt","./FTP.Client_paylaod.py")
                   file="FTP.Client_paylaod.py"
                   for line in fileinput.FileInput(file,inplace=1):
-	                if '# application name : 'in line:
+	                if '# application name :'in line:
 		            line = line.rstrip()
 		            line = line.replace(line,line+  self.app_name  +'\n')
 				 
