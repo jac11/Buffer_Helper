@@ -264,7 +264,7 @@ class Buffer_Over():
                      
                   file="./FTP.Server_payload.py"
                   for line in fileinput.FileInput(file,inplace=1):
-	                if '# application name : 'in line:
+	                if '# application name :'in line:
 		            line = line.rstrip()
 		            line = line.replace(line,line+ self.data_recv +'\n')
 				 
