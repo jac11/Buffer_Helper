@@ -110,7 +110,7 @@ class Buffer_Over():
                     exit()
      def string_ramdon(self):        
              try:                      
-	 	    Requst_String = int (raw_input(O+"\n[+]"+W+B+"Enter the lengh of Pattern :"+W))
+	 	    Requst_String = int (raw_input(O+"\n[+]"+W+B+"Enter the length of Pattern :"+W))
 		    time.sleep(2)
 		    self.Random_String = "".join(random.choice(string.ascii_letters)for i in range(Requst_String )).lower()  
                     self.Random_String = bytearray(self.Random_String)
@@ -294,8 +294,7 @@ class Buffer_Over():
 		        print line,
 		        
                   time.sleep(2)
-		  print O+"\n <<<<>>>>>>"+W+R+"The Final Process of this Exploit Written in the File\
-		  "+W+Y+"'FTP.Server_Payload.py'"+W+O+"<<<>>>> "+W 
+		  print O+"\n <<<<>>>>>>"+W+R+"The Final Process of this Exploit Written in the File"+W+Y+"'FTP.Server_Payload.py'"+W+O+"<<<>>>> "+W 
 		  time.sleep(2)     
                   print   Banner
                   exit() 
