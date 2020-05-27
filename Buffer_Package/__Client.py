@@ -68,7 +68,7 @@ class SERVER_BUFFER():
       def string_ramd(self):
           
           try:
-	      self.Requst_String = int (raw_input(O+"\n[+]"+W+B+"Enter the lengh of Pattern :"+W))
+	      self.Requst_String = int (raw_input(O+"\n[+]"+W+B+"Enter the length of Pattern :"+W))
 	      time.sleep(2)
 	      self.Random_String = "".join(random.choice(string.ascii_letters)for i in range(self.Requst_String )).lower()  
               self.Random_String = bytearray(self.Random_String)
@@ -228,8 +228,7 @@ class SERVER_BUFFER():
 				
 		        print line,
 		  time.sleep(2)
-		  print O+"\n <<<<>>>>>>"+W+R+"The Final Process of this Exploit Written in the \
-		  File "+W+Y+"'FTP.Server_Paylaod.py'"+W+O+"<<<>>>> "+W 
+		  print O+"\n <<<<>>>>>>"+W+R+"The Final Process of this Exploit Written in the File "+W+Y+"'FTP.Server_Paylaod.py'"+W+O+"<<<>>>> "+W 
 		  time.sleep(2)     
                   print   Banner
                   exit() 
