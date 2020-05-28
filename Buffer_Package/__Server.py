@@ -82,7 +82,7 @@ class Buffer_Over():
 			  except:
 		              print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(length)+W+ R+ " Characters"+W  
 		    except NameError:
-                             print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"***_***"+W
+                             print O+"\n***_***_"+W+R+"[::"+W+Y+"Fuzzing NOT Start"+W+R+"::'Connection Error :::::']"+W+O+"***_***"+W
 			     self.ip_port()
 			     self.Fuzzing__()	
 	            try:
