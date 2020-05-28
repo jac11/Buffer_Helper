@@ -69,9 +69,9 @@ class Buffer_Over():
 		    try:
 		          try:
 		              while True: 
-		                    Fuzzing_sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)	       
+		                    Fuzzing_sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+			            Fuzzing_sock.settimeout(2)
 				    Fuzzing_sock.connect((self.server_ip,self.server_port))
-				    Fuzzing_sock.settimeout(2)
 				    Fuzzing_sock.recv(1023)	       	      
 				    Buffer=String*Fuzzer
 				    Fuzzing_sock.send(Buffer+'\n\r')
