@@ -3,6 +3,18 @@
 * Buffer_Helper.py Help To Test Buffer overflow FTP Server Exploit .
 
 * write by python 2.7
+## how to use 
+*  git clone  https://github.com/jac11/Buffer_Helper.git
+
+*  cd Buffer_Helper
+
+*  Generate shellcode and post it in shellcode.py file
+
+*  chmod + x Buffer_Helper.py
+
+*  Start Listener tool
+
+* ./ Buffer_Helper.py
 
 ## Required
 * generate your own shell code and replace it in the buffer_helper.py
