@@ -1,6 +1,6 @@
 # Buffer_helper
 
-* Buffer_Helper.py Help To Test Buffer overflow FTP Server Exploit .
+* Buffer_Helper.py Help To Test Buffer overflow FTP Server Exploit and Client FTP .
 
 * write by python 2.7
 
