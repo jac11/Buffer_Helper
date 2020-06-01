@@ -17,10 +17,6 @@
 
 * ./ Buffer_Helper.py
 * Select  Mode 1 to Target FTPServer mode  2 to Target FTP Client 
-## Required
-* generate your own shell code and replace it in the buffer_helper.py
-
-* create your listner use msfconsloe or netcat
 
 ## Required Software / Setup
 
