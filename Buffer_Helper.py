@@ -28,7 +28,7 @@ class Buffer_Helper():
                global Y  
                print Banner.Banner          
                print O+"\n\t\t\t\t<+++++++++|Wellcome to BUffer_Helper|+++++++++>"+W
-               print B+"\n\tBuffer_Helepr is Tool Help to Discover Buffer Overflow Vulnerabilities "+W            
+               print B+"\n\tBuffer_Helepr is Tool Help for classic Buffer Overflow Vulnerabilities "+W            
                print O+"\t\t ***_***"+W+Y+"NOTE"+W+O+"***_*** "+W
                print B+"\n\t\t**Requide To Start Listener tool**  "+W
                print R+"\n\t\t!_________Generate shellcode and post it in shell_code.py file________! \n"+W
@@ -48,8 +48,7 @@ class Buffer_Helper():
              print R+"\n[*]"+W+Y+"'2')"+W+B+ " To Target FTP Client "+W
              print R+"\n[*]"+W+Y+"'3')"+W+B+ " To Target SyncBreeze"+W
              selcet4= str(raw_input(O+"\n[$]"+W+B+"Please Select Mode : "+W))
-           
-           if selcet4 == selcet1 and len(selcet4)==1:             
+             if selcet4 == selcet1 and len(selcet4)==1:             
                 run = Buffer_Over()                
              elif selcet4 == selcet2 and len(selcet4)==1:             
                  run = SERVER_BUFFER()
