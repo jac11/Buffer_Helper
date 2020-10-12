@@ -1,16 +1,4 @@
 
 
 # pls add your shellcode 
-shellcode=  (   )
-
-
-
-
-
-
-
-
-
-
-       
-
+shellcode= ()
