@@ -48,14 +48,12 @@ class Buffer_Helper():
              print R+"\n[*]"+W+Y+"'2')"+W+B+ " To Target FTP Client "+W
              print R+"\n[*]"+W+Y+"'3')"+W+B+ " To Target SyncBreeze"+W
              selcet4= str(raw_input(O+"\n[$]"+W+B+"Please Select Mode : "+W))
-             if selcet4 == selcet1 and len(selcet3)==1:
-             
-                run = Buffer_Over()
-                
-             elif selcet4 == selcet2 and len(selcet3)==1:
-             
+           
+           if selcet4 == selcet1 and len(selcet4)==1:             
+                run = Buffer_Over()                
+             elif selcet4 == selcet2 and len(selcet4)==1:             
                  run = SERVER_BUFFER()
-             elif selcet4 == selcet3 and len(selcet3)==1: 
+             elif selcet4 == selcet3 and len(selcet4)==1: 
                  run = Sync_Breeze()
              else:
                  time.sleep(2)
