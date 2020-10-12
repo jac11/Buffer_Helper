@@ -303,7 +303,7 @@ class Sync_Breeze():
 		             line = line.rstrip()
 		             line = line.replace(line,line+ self.shell_code+ ')'+'\n') 
 			     
-		        if 'Target Url ='in line:
+		        if 'Target_Url ='in line:
 		            line = line.rstrip()
 			    line = line.replace(line,line+'"'+self.target_url+'"'+"\n") 
 					   
