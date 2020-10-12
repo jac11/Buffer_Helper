@@ -28,7 +28,8 @@ class Buffer_Helper():
                global Y  
                print Banner.Banner          
                print O+"\n\t\t\t\t<+++++++++|Wellcome to BUffer_Helper|+++++++++>"+W
-               print B+"\n\tBuffer_Helepr is Tool Help for classic Buffer Overflow Vulnerabilities "+W            
+               print B+"\n\tBuffer_Helepr it's Tool Help for classic Buffer Overflow Vulnerabilities "+W  
+               print
                print O+"\t\t ***_***"+W+Y+"NOTE"+W+O+"***_*** "+W
                print B+"\n\t\t**Requide To Start Listener tool**  "+W
                print R+"\n\t\t!_________Generate shellcode and post it in shell_code.py file________! \n"+W
