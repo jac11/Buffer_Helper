@@ -2,8 +2,7 @@
 
 
 import random
-import string
-import socket 
+import string 
 import time
 from shell_code import shell_code 
 import fileinput
