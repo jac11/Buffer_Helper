@@ -29,7 +29,7 @@ class Buffer_Over():
             global P
             global Y          
             time.sleep(2)
-            print Y+"\n[A]"+W+R+"* Buffer_Helper Start as Client * "+W+Y+"[C]"+W
+            print Y+"\n[A]"+W+R+"* Buffer_Helper Start Target FTP Server Mode  * "+W+Y+"[C]"+W
             self.ip_port()
             self.Fuzzing__()
             self.string_ramdon()
