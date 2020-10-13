@@ -18,14 +18,15 @@
 *  Start Listener tool
 
 * ./ Buffer_Helper.py
-* after the Exploit is sccyed the Buffer_helper will give you output file have the ready Exploit
+
+* after the Exploit is successful the Buffer_helper will give you output file have the ready Exploit
+
 ## screenshot
 * this screenshot 'sync Breeze Exploit'
 <img src = "images/1.png">
 
 <img src = "images/2.png" width=350> <img src = "images/3.png" width=350> <img src = "images/4.png" width=350> 
-## auto write
-* after the Exploit is sccyed the Buffer_helper will give you output file have the ready Exploit
+
 ## Required Software / Setup
 
 * attacker system: Kali Linux
