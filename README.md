@@ -19,15 +19,20 @@
 
 * ./ Buffer_Helper.py
 
-* after the Exploit is successful the Buffer_helper will auto write output file have the ready Exploit
+
 
 ## screenshot
 * this screenshot 'sync Breeze Exploit'
 <img src = "images/1.png">
 
-<img src = "images/2.png" width=350> <img src = "images/3.png" width=350> <img src = "images/4.png" width=350> 
+<img src = "images/2.png" width=350> <img src = "images/3.png" width=350> <img src = "images/4.png" width=350>
+
+* after the Exploit is successful the Buffer_helper will auto write output file have the ready Exploit
+
+<img src = "images/Screenshot from 2020-10-12 22-15-37.png">
 
 ## Required Software / Setup
+
 
 * attacker system: Kali Linux
 
