@@ -1,22 +1,25 @@
 # Buffer_helper
 
-* Buffer_Helper.py Help To Test Buffer overflow FTP Server Exploit and Client FTP .
+* Buffer_Helper it's tool help for Test classic Buffer overflow vulnerability .
 
 * write by python 2.7
-
+## Required Library
+* to Target http Service login page 'sync Breeze ' run flowing command
+* pip install requests
 ## how to use 
 *  git clone  https://github.com/jac11/Buffer_Helper.git
 
 *  cd Buffer_Helper
 
-*  Generate shellcode and post it in shellcode.py file
+*  Generate shellcode and post it in shell_code.py file
 
 *  chmod + x Buffer_Helper.py
 
 *  Start Listener tool
 
 * ./ Buffer_Helper.py
-* Select  Mode 1 to Target FTPServer mode  2 to Target FTP Client 
+## screenshot
+
 
 ## Required Software / Setup
 
@@ -33,4 +36,4 @@
 
 * administrator@jacstory.tech 
 
-* thank you for reading it 
+* thank you  
