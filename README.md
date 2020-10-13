@@ -19,7 +19,7 @@
 
 * ./ Buffer_Helper.py
 
-* after the Exploit is successful the Buffer_helper will give you output file have the ready Exploit
+* after the Exploit is successful the Buffer_helper will auto write output file have the ready Exploit
 
 ## screenshot
 * this screenshot 'sync Breeze Exploit'
