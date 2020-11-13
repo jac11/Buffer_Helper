@@ -72,7 +72,14 @@ class Bad_Character:
                     exit() 
        def input_hex(self):
           try :
+               list_add = []
                self.hex_input  = str(raw_input(O+"\n[%]"+W+B+"Enter the Hex Number Badchar"+W+O+" :"+W))                
+               if self.hex_input not in list_add:
+                   list_add.append(self.hex_input)
+               else:
+                  print P+"\n[?]the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
+                  time.sleep(2) 
+                  return self.input_hex()            
                if len(self.hex_input)== 4 and '\\x' in self.hex_input :
                     self.input_send = self.hex_x.replace(self.hex_input,'')
                else:
@@ -110,7 +117,7 @@ class Bad_Character:
                         time.sleep(2) 
                         self.input_hex()                                               
                         self.HEX_FORMAT()                                               
-                       
+                        
              except KeyboardInterrupt:
                    print Banner
                    exit()                        
@@ -140,32 +147,36 @@ class Bad_Character:
           list=[]          
           while True:
             try:     
-              out_q = 'q'.lower() 
-              continue_skip = 'd'.lower()                     
+              self.out_q = 'q'.lower() 
+              self.continue_skip = 'd'.lower()                     
               time.sleep(2)  
               self.input_hex()          
               self.HEX_FORMAT()
               self._SOCKET_SOCKET()
-              out = str(raw_input(P+"\n[*]"+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()
-              if self.hex_input not in list :
+              def select():       
+                 self.out = str(raw_input(P+"\n[*]"+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()              
+                 if self.hex_input not in list :
                      list.append(self.hex_input) 
-              if out == out_q and len(out)==1 :                
-                 print Y+"\n[#]"+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
-                 print O+"\n\t\t ***_***"+W+Y+" Test Bad Character is Finish "+W+O+"***_*** "+W
-                 print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
-                 os.remove('txt')
-                 os.remove('textarray')   
-                 os.remove('.data')             
-                 break
-              elif out == continue_skip and len(out)==1 : 
-                  pass  
-              else:
-                 print O+"[*]"+W+R+"\nPlease enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W 
-                 self.input_hex()
-                 self.HEX_FORMAT()
-                 self._SOCKET_SOCKET()
-                 self.main()                        
-              print Y+"\n[#]"+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W                           
+                 if self.out == self.out_q and len(self.out)==1 :                
+                    print Y+"\n[#]"+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
+                    time.sleep(2)
+                    print O+"\n\t\t ***_***"+W+Y+" Test Bad Character is Finish "+W+O+"***_*** "+W
+                    time.sleep(2)
+                    print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
+                    os.remove('txt')
+                    os.remove('textarray')   
+                    os.remove('.data')             
+                 elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
+                    pass  
+                 else:
+                   time.sleep(2)
+                   print O+"\n[*]"+W+R+"Please enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W  
+                   time.sleep(2)
+                   print Y+"\n[#]"+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W
+                   return select()  
+              select()                    
+              if self.out == self.out_q :
+                break                          
             except KeyboardInterrupt:
                  print Banner
                  exit()
@@ -251,7 +262,14 @@ class Bad_Character_Clinet:
                     exit() 
        def input_hex(self):
           try :
-               self.hex_input  = str(raw_input(O+"\n[%]"+W+B+"Enter the Hex Number Badchar"+W+O+" :"+W))                
+               list_add = []
+               self.hex_input  = str(raw_input(O+"\n[%]"+W+B+"Enter the Hex Number Badchar"+W+O+" :"+W))                 
+               if self.hex_input not in list_add:
+                  list_add.append(self.hex_input)                
+               else:
+                  print P+"\n[?]the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
+                  time.sleep(2) 
+                  return self.input_hex()                 
                if len(self.hex_input)== 4 and '\\x' in self.hex_input :
                     self.input_send = self.hex_x.replace(self.hex_input,'')
                else:
@@ -406,7 +424,14 @@ class Bad_Character_SyncBreeze:
                     exit() 
        def input_hex(self):
           try :
-               self.hex_input  = str(raw_input(O+"\n[%]"+W+B+"Enter the Hex Number Badchar"+W+O+" :"+W))                
+               list_add = []
+               self.hex_input  = str(raw_input(O+"\n[%]"+W+B+"Enter the Hex Number Badchar"+W+O+" :"+W))                  
+               if self.hex_input not in list_add:
+                  list_add.append(self.hex_input)
+               else:
+                  print P+"\n[?]the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
+                  time.sleep(2) 
+                  return self.input_hex()               
                if len(self.hex_input)== 4 and '\\x' in self.hex_input :
                     self.input_send = self.hex_x.replace(self.hex_input,'')
                else:
@@ -489,36 +514,38 @@ class Bad_Character_SyncBreeze:
           list=[]          
           while True:
             try:     
-              out_q = 'q'.lower() 
-              continue_skip = 'd'.lower()                     
+              self.out_q = 'q'.lower() 
+              self.continue_skip = 'd'.lower()                     
               time.sleep(2)  
               self.input_hex()          
               self.HEX_FORMAT()
               self.connect_login()
-              out = str(raw_input(P+"\n[*]"+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()
-              if self.hex_input not in list :
+              def select():       
+                 self.out = str(raw_input(P+"\n[*]"+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()              
+                 if self.hex_input not in list :
                      list.append(self.hex_input) 
-              if out == out_q and len(out)==1 :                
-                 print Y+"\n[#]"+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
-                 print O+"\n\t\t ***_***"+W+Y+" Test Bad Character is Finish "+W+O+"***_*** "+W
-                 print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
-                 os.remove('txt')
-                 os.remove('textarray')   
-                 os.remove('.data')             
-                 break
-              elif out == continue_skip and len(out)==1 : 
-                  pass  
-              else:
-                 print O+"[*]"+W+R+"\nPlease enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W 
-                 self.input_hex()
-                 self.HEX_FORMAT()
-                 self.connect_login()
-                 self.main()                        
-              print Y+"\n[#]"+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W                           
+                 if self.out == self.out_q and len(self.out)==1 :                
+                    print Y+"\n[#]"+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
+                    time.sleep(2)
+                    print O+"\n\t\t ***_***"+W+Y+" Test Bad Character is Finish "+W+O+"***_*** "+W
+                    time.sleep(2)
+                    print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
+                    os.remove('txt')
+                    os.remove('textarray')   
+                    os.remove('.data')             
+                 elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
+                    pass  
+                 else:
+                   time.sleep(2)
+                   print O+"\n[*]"+W+R+"Please enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W  
+                   time.sleep(2)
+                   print Y+"\n[#]"+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W
+                   return select()  
+              select()                    
+              if self.out == self.out_q :
+                break                          
             except KeyboardInterrupt:
                  print Banner
                  exit()
 if __name__ =='__main__':
    Bad_Character_SyncBreeze()
-
-  
