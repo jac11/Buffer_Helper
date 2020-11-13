@@ -96,12 +96,12 @@ class Buffer_Over():
 		             if  Fuzzer > 100:                           
                                  print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(length)+W+ R+ " Characters"+W 
                              else:
-                               print Y+"\n[+]"+W+R+"String Pattern NOT Generated :"+W 
+                               print Y+"\n[+]"+W+R+"String Pattern NOT Generated "+W 
                                time.sleep(1)
                                print Y+"\n[+]"+W+B+"service is down "+W 
                                time.sleep(1)
-                               print  Banner
-                               exit()   
+                               self.ip_port()
+                               self.Fuzzing__()  
 		    except NameError:
                              print O+"\n***_***_"+W+R+"[::"+W+Y+"Fuzzing NOT Start"+W+R+"::'Connection Error :::::']"+W+O+"***_***"+W
 			     self.ip_port()
