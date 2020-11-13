@@ -105,12 +105,12 @@ class Sync_Breeze():
                              if  Fuzzer > 100:                           
                                  print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(Fuzzer)+W+ R+ " Characters"+W 
                              else:
-                               print Y+"\n[+]"+W+R+"String Pattern NOT Generated :"+W 
+                               print Y+"\n[+]"+W+R+"String Pattern NOT Generated "+W 
                                time.sleep(1)
                                print Y+"\n[+]"+W+B+"service is down "+W 
                                time.sleep(1)
-                               print  Banner
-                               exit()  
+                               self.web_req()
+                               self.Fuzzing__()
                     except KeyboardInterrupt:
                         print  Banner
                         exit() 
@@ -377,4 +377,3 @@ class Sync_Breeze():
 		          
 if __name__ == '__main__':
    Sync_Breeze()
-
