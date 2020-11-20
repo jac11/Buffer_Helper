@@ -55,14 +55,16 @@ class Sync_Breeze():
             try:
             	session = requests.session()
                 self.target_url=str(raw_input(O+"\n[+]"+W+B+"Target Url : "+W))
-                response = session.get(self.target_url,timeout=5)
+                if '/'in self.target_url[-1]:
+                    pass
+                else:
+                   self.target_url =self.target_url+'/'.strip() 
+                response = session.get(self.target_url,timeout=5)                     
                 if response.ok == True:
                      pass
-                else:
-                     print Y+"\n[#]"+W+R+"Please Check Service" +W+Y+"[#]"+W
-                     time.sleep(2)
-                     print Y+"\n[#]"+W+R+"Please Check Service" +W+Y+"[#]"+W      
             except Exception:
+                print Y+"\n[#]"+W+R+"Please Check Service" +W+Y+"[#]"+W
+                time.sleep(2)
                 print Y+"\n[#]"+W+R+"Service Not Runing" +W+Y+"[#]"+W 
                 return  self.web_req()    
             except KeyboardInterrupt:
@@ -101,7 +103,7 @@ class Sync_Breeze():
                                  sys.stdout.write('\x1b[1A')
                                  sys.stdout.write('\x1b[2K') 
                                                          
-                        except:
+                        except requests.exceptions.ReadTimeout:
                              if  Fuzzer > 100:                           
                                  print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(Fuzzer)+W+ R+ " Characters"+W 
                              else:
@@ -180,7 +182,7 @@ class Sync_Breeze():
                  	   break
                else:
                    print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
-                   print Y+"\n[+]"+W+w+"please Restart The Service and try agin"+W+Y+"...!!!"+W  	   
+                   print Y+"\n[+]"+W+R+"please Restart The Service and try agin"+W+Y+"...!!!"+W  	   
                    self.connect_servser()
             except requests.exceptions.ReadTimeout:
                 print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
