@@ -103,6 +103,8 @@ class Sync_Breeze():
                                  sys.stdout.write('\x1b[1A')
                                  sys.stdout.write('\x1b[2K') 
                                                          
+                        except requests.exceptions.ConnectionError:
+                          pass
                         except requests.exceptions.ReadTimeout:
                              if  Fuzzer > 100:                           
                                  print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(Fuzzer)+W+ R+ " Characters"+W 
