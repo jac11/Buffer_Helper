@@ -1,12 +1,13 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python2 
 
  
 import time
 import readline 
-from Buffer_Package import  Banner 
-from Buffer_Package.__Server import  Buffer_Over
-from Buffer_Package.__Client import  SERVER_BUFFER
-from Buffer_Package.SyncBreeze import Sync_Breeze
+
+from Buffer_Package             import  Banner 
+from Buffer_Package.__Server    import  SERVERSOCKET
+from Buffer_Package.__Client    import  LISTEN_BIND
+from Buffer_Package.HTTP_LOGIN  import  HTTPLOGIN
 
 W='\033[0m'     
 R='\033[31m'    
@@ -45,16 +46,16 @@ class Buffer_Helper():
              print O+"\n[+]"+W+B+" selcet Mode "+W
              print Y+"="*20+W
              print
-             print R+"\n[*]"+W+Y+"'1')"+W+B+ " To Target FTP Server "+W
-             print R+"\n[*]"+W+Y+"'2')"+W+B+ " To Target FTP Client "+W
-             print R+"\n[*]"+W+Y+"'3')"+W+B+ " To Target SyncBreeze"+W
+             print R+"\n[*]"+W+Y+"'1')"+W+B+ " To Target Server "+W
+             print R+"\n[*]"+W+Y+"'2')"+W+B+ " To Target FTPClient "+W
+             print R+"\n[*]"+W+Y+"'3')"+W+B+ " To Target HTTP Login Page"+W
              selcet4= str(raw_input(O+"\n[$]"+W+B+"Please Select Mode : "+W))
              if selcet4 == selcet1 and len(selcet4)==1:             
-                run = Buffer_Over()                
+                run = SERVERSOCKET()                
              elif selcet4 == selcet2 and len(selcet4)==1:             
-                 run = SERVER_BUFFER()
+                 run = LISTEN_BIND()
              elif selcet4 == selcet3 and len(selcet4)==1: 
-                 run = Sync_Breeze()
+                 run = HTTPLOGIN()
              else:
                  time.sleep(2)
                  print Y+" \n[#]"+W+R+"Please Select Mode"+W
