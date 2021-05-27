@@ -41,13 +41,7 @@ except IndexError:
 class Buffer_Helper():
                                          
        def __init__(self):
-               global W
-               global R
-               global G
-               global O
-               global B
-               global P
-               global Y  
+  
                print Banner.Banner          
                print O+"\n\t\t\t\t<+++++++++|Wellcome to BUffer_Helper|+++++++++>"+W
                print B+"\n\tBuffer_Helepr it's Tool Help for classic Buffer Overflow Vulnerabilities "+W  
