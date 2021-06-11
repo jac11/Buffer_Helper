@@ -11,12 +11,16 @@ try:
       W=''     
       R=''    
    else: 
-       print 'Plsase set color to off'
+       W='\033[0m'     
+       R='\033[31m'
+       print R+'[*]\n'+W+R+'PLZ SET THE COLOR TO OFF -c off'+W+'\n'+R+'='*25+'\n'
        exit()
 except IndexError:
           try:
             if sys.argv[1]:
-               print 'Plsase set color to off'
+               W='\033[0m'     
+               R='\033[31m'
+               print R+'[*]\n'+W+R+'PLZ SET THE COLOR TO OFF -c off'+W+'\n'+R+'='*25+'\n'
                exit()  
           except IndexError:
                pass
