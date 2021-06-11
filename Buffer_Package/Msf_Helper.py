@@ -171,7 +171,9 @@ class Msf_Helper:
                file_resource = resource.write('use exploit/multi/handler'+'\n'+'set payload  '+self.payload+\
                '\n'+'set  LHOST '+self.host_ip+'\n'+'set  LPORT '+str(self.select_port)+'\n'+'clear' +'\n'+'run')
           command_proc = 'gnome-terminal  -e '+'" msfconsole -q -r .resource "'                       
-          call_termminal = subprocess.call(command_proc,shell=True,stderr=subprocess.PIPE)          
+          call_termminal = subprocess.call(command_proc,shell=True,stderr=subprocess.PIPE)   
+          os.remove('.data')
+          os.remove('.resource')       
        elif select01 == self.selcet2 and len(select01)==1:  
              command ='"'+'nc -nvlp'+str(self.select_port)+'"'
              command_proc = 'gnome-terminal  -e '+ command

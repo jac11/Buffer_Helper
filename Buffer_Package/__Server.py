@@ -182,7 +182,7 @@ class SERVERSOCKET():
 		    print Y+"\n[+] "+W+R+"String Pattern is Generated in length :"+W,len(self.Random_String )#,"\n\n",(self.Random_String).strip()
              except Exception:
                     time.sleep(2)
-                    print Y+"\n\r\r!---___"+W+R+ "Check input integer Required" "+W+Y+'___---!'+W
+                    print Y+"\n\r\r!---___"+W+R+ "Check input integer Required"+W+Y+'___---!'+W
                     return self.string_ramdon()		 
              except KeyboardInterrupt:
                     print  Banner
@@ -202,7 +202,7 @@ class SERVERSOCKET():
 		       socket_1.close()
 		       break 
 	            else:
-                          print Y+"\n\r\r!---___"+W+P+"Connection is Down Socket.Erro"+W+Y'___---!'+W
+                          print Y+"\n\r\r!---___"+W+P+"Connection is Down Socket.Erro"+W+Y+'___---!'+W
 	                  time.sleep(2)
 	                  return self.ip_port()
 	       except socket.error, exc:
