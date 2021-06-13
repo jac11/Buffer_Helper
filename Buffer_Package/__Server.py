@@ -412,6 +412,8 @@ class SERVERSOCKET():
 		  print O+"\n\t!_________The Final Process of this Exploit Written in to "+W,Y+"'ExploitStore'"+W,O+"Folder________!"+W
 		  time.sleep(2)     
                   print   Banner
+                  os.remove('.resource')  
+                  os.remove('.data') 
                   exit() 
                 except KeyboardInterrupt:    
                      print Banner                              	

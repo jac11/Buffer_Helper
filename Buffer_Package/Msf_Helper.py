@@ -54,9 +54,14 @@ class Msf_Helper:
    def shell_option(self):
        
       with open('.data','r')as data:
-           data_list   =   list(data)                        
-      self.bad_char    =   data_list[3].replace('\n','')
-      self.host_ip     =   data_list[5].replace('\n','')      
+           data_list   =   list(data)  
+      try:                      
+         self.bad_char  =   data_list[3].replace('\n','')
+         self.host_ip   =   data_list[4].replace('\n','') 
+      except IndexError :
+         self.bad_char  =   data_list[2].replace('\n','')
+         self.host_ip   =   data_list[3].replace('\n','')
+      
       self.selcet1= "1"
       self.selcet2= "2"
       self.selcet3= "3"
@@ -172,14 +177,13 @@ class Msf_Helper:
                '\n'+'set  LHOST '+self.host_ip+'\n'+'set  LPORT '+str(self.select_port)+'\n'+'clear' +'\n'+'run')
           command_proc = 'gnome-terminal  -e '+'" msfconsole -q -r .resource "'                       
           call_termminal = subprocess.call(command_proc,shell=True,stderr=subprocess.PIPE)   
-          os.remove('.data')
-          os.remove('.resource')       
+
+               
        elif select01 == self.selcet2 and len(select01)==1:  
              command ='"'+'nc -nvlp'+str(self.select_port)+'"'
              command_proc = 'gnome-terminal  -e '+ command
              call_termminal = subprocess.call(command_proc,shell=True ,stderr=subprocess.PIPE)
-             os.remove('.data')
-             os.remove('.resource')
+
        else:
               print Y+"\n\r\r!---___"+W+P+"Seclet from the Optins!"+W+Y+"---___"+W
               self.listiner()
@@ -321,8 +325,6 @@ class Msf_Char_NO:
              command ='"'+'nc -nvlp'+str(self.select_port)+'"'
              command_proc = 'gnome-terminal  -e '+ command
              call_termminal = subprocess.call(command_proc,shell=True ,stderr=subprocess.PIPE)
-             os.remove('.data')
-             os.remove('.resource')
        else:
               print Y+"\n\r\r!---___"+W+P+"Seclet from the Optins!"+W+Y+"---___"+W
               self.listiner()

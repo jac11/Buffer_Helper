@@ -59,7 +59,9 @@ class HTTPLOGIN():
             """
             print O+mode+W      
             time.sleep(2)
-            print Y+"\n[A]"+W+P+"* use url as 'https/http://' login page/ * "+W+Y+"[C]"+W
+            self.app_name = str(raw_input(O+"\n[+] "+W+P+"application name : "+W))
+            time.sleep(1)
+            print Y+"\n\r\r!---___"+W+R+ "Use URl as 'https/http://hostip or Domain' login page/"+W+Y+'___---!'+W 
             time.sleep(2)
             self.web_req()
             self.Fuzzing__()
@@ -73,7 +75,6 @@ class HTTPLOGIN():
             self.auto_write()
      def web_req(self):
             try:
-                self.app_name = str(raw_input(O+"\n[+]"+W+B+"[*] application name : "+W))
             	session = requests.session()
                 self.target_url=str(raw_input(O+"\n[+]"+W+B+"Target Url : "+W))
                 if '/'in self.target_url[-1]:
@@ -96,7 +97,8 @@ class HTTPLOGIN():
                 self.Fuz_skip = 's'.lower() 
                 self.Fuz_OPt  = "y".lower()  
                 time.sleep(2)           
-                print O+"\n[F]"+W+Y+" Fuzzing Option "+W+O+"[?]"+W
+                banner2=Y+'\n\t\tFUZZING OPTIONS'+'\n\t   '+('='*22)
+                print banner2
                 time.sleep(2) 
                 self.Fuzzing_in = str(raw_input(O+"\n[$]"+W+B+"To Start Fuzzing Enter" +W+R+"'Y'" +W+B+ "To skip Fuzzing Enter" +W+R+"'S'"+W+B+' : '+W))               
                 if self.Fuzzing_in ==self.Fuz_skip and len(self.Fuzzing_in)==1:
@@ -107,8 +109,6 @@ class HTTPLOGIN():
                     String = "A"
                     Fuzzer = 100
                     password = 'admin'
-                    banner2=Y+'\n\t\tFUZZING OPTIONS'+'\n\t   '+('='*22)
-                    print banner2
                     print O+"\n>>>>"+W+R+"Fuzzing in process "+W 
                     try:
                         try:
@@ -140,8 +140,7 @@ class HTTPLOGIN():
                                 self.string_ramdon() 
                                 self.connect_servser() 
                                 self.Option_return()
-                                self._hexadecimal()
-                                 
+                                self._hexadecimal()                                
                                 self.import_char()                                   
                                 self.attack_all()
                                 self.auto_write()
@@ -291,10 +290,10 @@ class HTTPLOGIN():
                     """
                 print P+banner+W 
                 with open('.data','w')as data :
-                    data1 = data.write(self.server_ip+'\n'+str(self.server_port)+'\n'+str(self.location))         
+                    data1 = data.write(self.target_url+'\n'+str(self.location))       
                 time.sleep(2)
-                from Bad_Character import Bad_Character             
-                run = Bad_Character()
+                from Bad_Character import Bad_Character_HTTP           
+                run = Bad_Character_HTTP()
                 from Msf_Helper  import Msf_Helper
                 go = Msf_Helper()
             elif bad_op ==Bad_no and len(Bad_no)==2: 
@@ -438,6 +437,8 @@ class HTTPLOGIN():
 		  print O+"\n\t!_________The Final Process of this Exploit Written in to "+W,Y+"'ExploitStore'"+W,O+"Folder________!"+W 
 		  time.sleep(2)     
                   print   Banner
+                  os.remove('.resource')  
+                  os.remove('.data')
                   exit() 
                 except KeyboardInterrupt:    
                      print   Banner                              	

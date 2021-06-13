@@ -146,8 +146,7 @@ class Bad_Character:
        def main(self):
           self.HEX_array() 
           self._SOCKET_SOCKET()
-          list=[]
-          list2=[]          
+          list=[]         
           while True:
             try:     
               self.out_q = 'q'.lower() 
@@ -160,7 +159,6 @@ class Bad_Character:
                  self.out = str(raw_input(P+"\n[*] "+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()              
                  if self.hex_input not in list :
                      list.append(self.hex_input) 
-                     list2.append('\\'+self.hex_input)
                  if self.out == self.out_q and len(self.out)==1 :                
                     print Y+"\n[#] "+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
                     time.sleep(2)
@@ -171,8 +169,7 @@ class Bad_Character:
                     os.remove('textarray') 
                     host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
                     with open('.data','a') as append:
-                        append_bad =append.write('\n'+str(''.join(list)))                       
-                        append_bad =append.write('\n'+str(''.join(list2)+'\n'+ host_ip.replace(' ','\n')))         
+                        append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))                              
                  elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
                     pass  
                  else:
@@ -338,8 +335,7 @@ class Bad_Character_Clinet:
           self.HEX_array()
           self.Listen_FAKE()
           self.send()
-          list=[] 
-          list2=[]         
+          list=[]         
           while True:
             try:     
               out_q = 'q'.lower() 
@@ -359,9 +355,8 @@ class Bad_Character_Clinet:
                  os.remove('txt')
                  os.remove('textarray')   
                  host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
-                 with open('.data','a') as append:
-                       append_bad =append.write('\n'+str(''.join(list)))                       
-                       append_bad =append.write('\n'+str(''.join(list2)+'\n'+ host_ip.replace(' ','\n')))            
+                 with open('.data','a') as append:                       
+                       append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))            
                  break
               elif out == continue_skip and len(out)==1 : 
                   pass  
@@ -382,7 +377,7 @@ if __name__ =='__main__':
   
   
 
-class Bad_Character_SyncBreeze:
+class Bad_Character_HTTP:
       
        def __init__(self):
             
@@ -522,8 +517,7 @@ class Bad_Character_SyncBreeze:
        def main(self):
           self.HEX_array() 
           self.connect_login()
-          list=[]  
-          list2=[]        
+          list=[]         
           while True:
             try:     
               self.out_q = 'q'.lower() 
@@ -545,9 +539,8 @@ class Bad_Character_SyncBreeze:
                     os.remove('txt')
                     os.remove('textarray')   
                     host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
-                    with open('.data','a') as append:
-                       append_bad =append.write('\n'+str(''.join(list)))                       
-                       append_bad =append.write('\n'+str(''.join(list2)+'\n'+ host_ip.replace(' ','\n')))                  
+                    with open('.data','a') as append:                     
+                       append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))                  
                  elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
                     pass  
                  else:
@@ -563,6 +556,6 @@ class Bad_Character_SyncBreeze:
                  print Banner
                  exit()
 if __name__ =='__main__':
-   Bad_Character_SyncBreeze()
+   Bad_Character_HTTP()
 
 
