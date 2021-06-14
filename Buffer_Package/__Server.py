@@ -226,7 +226,7 @@ class SERVERSOCKET():
                     self.connect_servser()
                     self.Option_return()
                else:
-                  print Y+"\n[-]"+W+R+"Please Enter "+W+B+"C"+W+R+"or"+W+B+" B"+W+Y+" [-]"+W 
+                  print Y+"\n\r\r!---___"+W+R+"Please Enter "+W+B+"C"+W+R+" or "+W+B+"B"+WY+'___---!'+W
                   self.Option_return()
            except KeyboardInterrupt:
                    print  Banner
@@ -338,7 +338,7 @@ class SERVERSOCKET():
      def attack_all(self):
 	       from shell_code import shell_code   		       
 	       try: 
-                   banner2=Y+'\n\t\tFainal Status'+'\n\t   '+('='*22)+W                                       
+                   banner2=Y+'\n\t\tFinal Status'+'\n\t   '+('='*22)+W                                       
                    print banner2
                    time.sleep(1)	                      
                    socket_2 =socket.socket(socket.AF_INET,socket.SOCK_STREAM)

