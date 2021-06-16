@@ -301,7 +301,7 @@ class Bad_Character_Clinet:
        def send(self): 
              try:                                                                                            
                  client , addr = self.listen_sock.accept()
-                 time.sleep(2)
+                 client.settimeout(10)
                  print Y+"\n[(-)]"+W+R+"BUFFER_HELPER CONNECTION ACCEPT FROM "+W+'%s:'%(addr[0],),P+"[(+)]"+W 
                  client.settimeout(3)
                  while True:
@@ -354,7 +354,8 @@ class Bad_Character_Clinet:
                    return select()  
               select()                    
               if self.out == self.out_q :
-                break                          
+                 self.listen_sock.close()
+                 break                          
             except KeyboardInterrupt:
                  print Banner
                  exit()
