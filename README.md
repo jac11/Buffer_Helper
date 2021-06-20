@@ -60,8 +60,5 @@
   
   ## Over view
    <img src = "images/1.gif" >
-   
-## thank you    
- 
-
+  
 * thank you  
