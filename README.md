@@ -20,6 +20,7 @@
 *  Start Listener tool
 
 * ./ Buffer_Helper.py
+* use ./Buffer_Helper.py -c off 'to set color off to use  the code with out color'
 
 
 
@@ -47,12 +48,18 @@
 ## Update:-
 
 - added one moudle msf_help.py
--  hele to call msfvamon to gernret shell code use subprocess call msfvanom 
+subprocess to call  msfvenom to generate shell code use subprocess call msfvanom 
 -  set lislner msfconsole or netcat  
+-  auto cat msfconsole and set all vireble auto 
+-  Label the steps 
+-  handle error and bugs
 
  <img src = "images/5.png" width=350> <img src = "images/6.png" width=350> <img src = "images/7.png" width=350>
-
-##  for Contact 
+ * ./Buffer_Helper.py -c off
+ -------------------------------
+  <img src = "images/8.png" width=350>> 
+  
+  <img src = "images/1.gif" >
 
 * administrator@jacstory.tech 
 
