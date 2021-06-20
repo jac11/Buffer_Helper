@@ -47,20 +47,21 @@
 
 ## Update:-
 
-- added one moudle msf_help.py
-subprocess to call  msfvenom to generate shell code use subprocess call msfvanom 
--  set lislner msfconsole or netcat  
--  auto cat msfconsole and set all vireble auto 
--  Label the steps 
--  handle error and bugs
+- added one module msf_help.py subprocess to call msfvenom to generate shellcode use subprocess call msfvanom
+  * set listener msfconsole or netcat
+  *  auto cat msfconsole and set all variable auto
+  *  Label the steps
+  *  handle error and bugs
 
  <img src = "images/5.png" width=350> <img src = "images/6.png" width=350> <img src = "images/7.png" width=350>
  * ./Buffer_Helper.py -c off
  -------------------------------
-  <img src = "images/8.png" width=350>> 
+  <img src = "images/8.png" width=450> 
   
-  <img src = "images/1.gif" >
-
-* administrator@jacstory.tech 
+  ## Over view
+   <img src = "images/1.gif" >
+   
+## thank you    
+ 
 
 * thank you  
