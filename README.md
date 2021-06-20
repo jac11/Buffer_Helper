@@ -18,7 +18,7 @@
 *  Start Listener tool
 
 * ./ Buffer_Helper.py
-* use ./Buffer_Helper.py -c off 'to set color off to use  the code with out color'
+
 
 
 
@@ -52,6 +52,8 @@
   *  handle error and bugs
 
  <img src = "images/5.png" width=350> <img src = "images/6.png" width=350> <img src = "images/7.png" width=350>
+ 
+ * use ./Buffer_Helper.py -c off 'to set color off to use  the code with out color'
  * ./Buffer_Helper.py -c off
  -------------------------------
   <img src = "images/8.png" width=450> 
