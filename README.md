@@ -1,7 +1,5 @@
 # Buffer_helper
 
-# Buffer_helper
-
 * Buffer_Helper it's tool help for Test classic Buffer overflow vulnerability .
 
 * write by python 2.7
