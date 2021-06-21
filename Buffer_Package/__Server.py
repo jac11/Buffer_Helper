@@ -226,7 +226,7 @@ class SERVERSOCKET():
                     self.connect_servser()
                     self.Option_return()
                else:
-                  print Y+"\n\r\r!---___"+W+R+"Please Enter "+W+B+"C"+W+R+" or "+W+B+"B"+WY+'___---!'+W
+                  print Y+"\n\r\r!---___"+W+R+"Please Enter "+W+B+"C"+W+R+" or "+W+B+"B"+W+Y+'___---!'+W
                   self.Option_return()
            except KeyboardInterrupt:
                    print  Banner
