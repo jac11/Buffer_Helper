@@ -59,9 +59,13 @@ class Msf_Helper:
          self.bad_char  =   data_list[3].replace('\n','')
          self.host_ip   =   data_list[4].replace('\n','') 
       except IndexError :
-         self.bad_char  =   data_list[2].replace('\n','')
-         self.host_ip   =   data_list[3].replace('\n','')
-      
+         try:
+            self.bad_char  =   data_list[2].replace('\n','')
+            self.host_ip   =   data_list[3].replace('\n','')
+         except IndexError :
+            self.bad_char  =   data_list[0].replace('\n','')
+            self.host_ip   =   data_list[1].replace('\n','')
+
       self.selcet1= "1"
       self.selcet2= "2"
       self.selcet3= "3"
@@ -72,11 +76,11 @@ class Msf_Helper:
       print O+"\n[+]"+W+B+" Select Paylaod "+W+'\n'+Y+'='*25+'\n'
       print R+"[*] "+W+Y+ "1-"+W+B+ " windows/shell/bind_tcp "+W
       time.sleep(0.30)
-      print R+"[*] "+W+Y+ "2-"+W+B+ " windows/shell_reverse_tcp "+W
+      print R+"[*] "+W+Y+ "2-"+W+B+ " windows/shell_reverse_tcp "+W+P+'--->[recommend]'+W
       time.sleep(0.30)
       print R+"[*] "+W+Y+ "3-"+W+B+ " windows/powershell_reverse_tcp "+W 
       time.sleep(0.30)       
-      print R+"[*] "+W+Y+ "4-"+W+B+ " windows/meterpreter/reverse_tcp"+W
+      print R+"[*] "+W+Y+ "4-"+W+B+ " windows/meterpreter/reverse_tcp"+W+P+'--->[recommend]'+W
       time.sleep(0.30)
       print R+"[*] "+W+Y+ "5-"+W+B+ " windows/meterpreter_reverse_http"+W
       time.sleep(0.30)
@@ -216,11 +220,11 @@ class Msf_Char_NO:
       print O+"\n[+]"+W+B+" Select Paylaod "+W+'\n'+Y+'='*25+'\n'
       print R+"[*] "+W+Y+ "1-"+W+B+ " windows/shell/bind_tcp "+W
       time.sleep(0.30)
-      print R+"[*] "+W+Y+ "2-"+W+B+ " windows/shell_reverse_tcp "+W
+      print R+"[*] "+W+Y+ "2-"+W+B+ " windows/shell_reverse_tcp "+W+P+'--->[recommend]'+W
       time.sleep(0.30)
-      print R+"[*] "+W+Y+ "3-"+W+B+ " windows/powershell_reverse_tcp "+W 
+      print R+"[*] "+W+Y+ "3-"+W+B+ " windows/powershell_reverse_tcp "+W
       time.sleep(0.30)       
-      print R+"[*] "+W+Y+ "4-"+W+B+ " windows/meterpreter/reverse_tcp"+W
+      print R+"[*] "+W+Y+ "4-"+W+B+ " windows/meterpreter/reverse_tcp"+W+P+'--->[recommend]'+W
       time.sleep(0.30)
       print R+"[*] "+W+Y+ "5-"+W+B+ " windows/meterpreter_reverse_http"+W
       time.sleep(0.30)

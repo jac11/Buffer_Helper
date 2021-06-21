@@ -308,9 +308,14 @@ class HTTPLOGIN():
                 opt_code = str(raw_input(O+"\n[$] "+W+B+"Generate ShellCode and Listner " +W+Y+"'Yes'" +W+B+ " skip Enter " +W+Y+"'no'"+W+B+' : '+W)).lower()
                 if opt_code == ok and len(opt_code)==3 :		              
                     time.sleep(1)                                     
-                    host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
-                    with open('.data','w')as data :
-                         data1 = data.write(self.badchar+'\n'+host_ip.replace(' ','\n'))
+                    try:
+                       host_ip   = check_output(['hostname', '--all-ip-addresses'],shell=True,stderr=subprocess.PIPE).decode('utf8').replace('\n','')
+                       with open('.data','w') as append:
+                           append_bad =append.write(self.badchar+'\n'+ host_ip.replace(' ','\n'))  
+                    except Exception:
+                            host_ip = str(raw_input(O+"\n[%]"+W+B+"Enter Local ip "+W+O+" :"+W))  
+                            with open('.data','w') as append:
+                                append_bad =append.write(self.badchar+'\n'+ host_ip.replace(' ','\n'))
                     from Msf_Helper  import Msf_Char_NO
                     go = Msf_Char_NO()
                 elif opt_code == no and len(opt_code)==2 :                     
