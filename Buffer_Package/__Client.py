@@ -342,10 +342,13 @@ class LISTEN_BIND():
                         except Exception:
                            print B+"\n[+]"+W+R+"WE READY TO ATTACK !!"+W+B+"[+]"+W 
                            time.sleep(2)
-                           print R+"\n\t\t\t!__________________EXPLOIT__SACUSSED__________________!"+W    
-                           os.remove('.resource')  
-                           os.remove('.data')       
-                           break
+                           print R+"\n\t\t\t!__________________EXPLOIT__SACUSSED__________________!"+W  
+			   try :			
+			        os.remove('.data')
+			        os.remove('.resource')
+				break
+                           except IOError :      
+                                break
              except KeyboardInterrupt:
                    Banner  
                    exit()                
