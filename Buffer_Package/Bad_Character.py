@@ -7,7 +7,7 @@ import os
 from Banner import *
 import requests
 from subprocess import check_output 
-
+import subprocess
 
 W='\033[0m'     
 R='\033[31m'    
@@ -161,7 +161,7 @@ class Bad_Character:
                     os.remove('txt')
                     os.remove('textarray') 
                     try:
-                       host_ip   = check_output(['hostname', '--all-ip-addresses'],shell=True,stderr=subprocess.PIPE).decode('utf8').replace('\n','')
+                       host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
                        with open('.data','a') as append:
                            append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))  
                     except Exception:
@@ -346,9 +346,14 @@ class Bad_Character_Clinet:
                     print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                     os.remove('txt')
                     os.remove('textarray') 
-                    host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
-                    with open('.data','a') as append:
-                        append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))                              
+                    try:
+                       host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
+                       with open('.data','a') as append:
+                           append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))  
+                    except Exception:
+                            host_ip = str(raw_input(O+"\n[%]"+W+B+"Enter Local ip "+W+O+" :"+W))  
+                            with open('.data','a') as append:
+                                append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))                              
                  elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
                     pass  
                  else:
@@ -524,9 +529,14 @@ class Bad_Character_HTTP:
                     print R+"\n\t\t!___To Continue Explit Generate shellcode and post it in shell_code.py file___! \n"+W 
                     os.remove('txt')
                     os.remove('textarray')   
-                    host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
-                    with open('.data','a') as append:                     
-                       append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))                  
+                    try:
+                       host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
+                       with open('.data','a') as append:
+                           append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))  
+                    except Exception:
+                            host_ip = str(raw_input(O+"\n[%]"+W+B+"Enter Local ip "+W+O+" :"+W))  
+                            with open('.data','a') as append:
+                                append_bad =append.write('\n'+str(''.join(list)+'\n'+ host_ip.replace(' ','\n')))                 
                  elif self.out == self.continue_skip and len(self.continue_skip)==1 : 
                     pass  
                  else:

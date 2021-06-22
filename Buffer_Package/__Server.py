@@ -1,6 +1,5 @@
 #!/usr/bin/env python2
 
-
 import random
 import string
 import socket 
@@ -296,8 +295,8 @@ class SERVERSOCKET():
                 if opt_code == ok and len(opt_code)==3 :		              
                     time.sleep(1)   
                     try:
-                       host_ip   = check_output(['hostname', '--all-ip-addresses'],shell=True,stderr=subprocess.PIPE).decode('utf8').replace('\n','')
-                       with open('.data','w') as append:
+                        host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
+                        with open('.data','w') as append:
                            append_bad =append.write(self.badchar+'\n'+ host_ip.replace(' ','\n'))  
                     except Exception:
                             host_ip = str(raw_input(O+"\n[%]"+W+B+"Enter Local ip "+W+O+" :"+W))  
@@ -421,7 +420,7 @@ class SERVERSOCKET():
 		       os.remove('.data')
 		       os.remove('.resource')
 		       exit()
-                  except IOError :
+                  except OSError:
                         exit() 
                 except KeyboardInterrupt:    
                      print Banner                              	

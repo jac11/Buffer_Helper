@@ -14,7 +14,6 @@ import os
 import sys
 
 
-
 W='\033[0m'     
 R='\033[31m'    
 G='\033[0;32m'  
@@ -266,7 +265,7 @@ class LISTEN_BIND():
                 if opt_code == ok and len(opt_code)==3 :		              
                     time.sleep(1)                                     
                     try:
-                       host_ip   = check_output(['hostname', '--all-ip-addresses'],shell=True,stderr=subprocess.PIPE).decode('utf8').replace('\n','')
+                       host_ip   = check_output(['hostname', '--all-ip-addresses']).decode('utf8').replace('\n','')
                        with open('.data','w') as append:
                            append_bad =append.write(self.badchar+'\n'+ host_ip.replace(' ','\n'))  
                     except Exception:
@@ -346,8 +345,8 @@ class LISTEN_BIND():
 			   try :			
 			        os.remove('.data')
 			        os.remove('.resource')
-				break
-                           except IOError :      
+			    	break
+                           except OSError :      
                                 break
              except KeyboardInterrupt:
                    Banner  
