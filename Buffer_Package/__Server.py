@@ -418,9 +418,9 @@ class SERVERSOCKET():
 		  time.sleep(2)     
                   print   Banner
                   try :			
-                       if os.remove('.data') :
-			  os.remove('.data')
-			  os.remove('.resource')
+		       os.remove('.data')
+		       os.remove('.resource')
+		       exit()
                   except IOError :
                         exit() 
                 except KeyboardInterrupt:    
