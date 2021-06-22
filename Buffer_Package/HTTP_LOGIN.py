@@ -442,9 +442,12 @@ class HTTPLOGIN():
 		  print O+"\n\t!_________The Final Process of this Exploit Written in to "+W,Y+"'ExploitStore'"+W,O+"Folder________!"+W 
 		  time.sleep(2)     
                   print   Banner
-                  os.remove('.resource')  
-                  os.remove('.data')
-                  exit() 
+	          try :		
+                     os.remove('.data')
+		     os.remove('.resource')  
+		     exit() 
+		  except :
+			exit()	
                 except KeyboardInterrupt:    
                      print   Banner                              	
                      exit()
