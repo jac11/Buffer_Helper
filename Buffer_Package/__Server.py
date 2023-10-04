@@ -239,10 +239,10 @@ class SERVERSOCKET():
      def _hexadecimal(self):                                                                                    
             while True:
                 try:
-                    banner2=Y+'\n\t\tCRACH ADDRESS'+'\n\t   '+('='*22)+W
+                    banner2=Y+'\n\t\tCRASH ADDRESS'+'\n\t   '+('='*22)+W
                     print banner2
                     time.sleep(1)                    
-                    self.hexadecimal =str(raw_input(O+"\n[+]"+W+B+"Enter Hexadecimal Crach address: "+W)).upper()
+                    self.hexadecimal =str(raw_input(O+"\n[+]"+W+B+"Enter Hexadecimal Crash address: "+W)).upper()
                     self.ASCII1 ="".join(reversed([self.hexadecimal[i:i+2] for i in range(0, len(self.hexadecimal), 2)]))                
                     self.ASCII = ''.join(chr(int(self.ASCII1[i:i+2], 16)) for i in range(0, len(self.ASCII1), 2))
                     if  self.ASCII in  self.Random_String and len(self.ASCII)==4:
