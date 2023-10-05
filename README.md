@@ -47,7 +47,7 @@
 
 - added one module msf_help.py subprocess to call msfvenom to generate shellcode use subprocess call msfvanom
   * set listener msfconsole or netcat
-  *  auto cat msfconsole and set all variable auto
+  *  auto call msfconsole and set all variable auto
   *  Label the steps
   *  handle error and bugs
 
